@@ -1,1 +1,0 @@
-SELECT * FROM db_test1.tb_user;
