@@ -1,4 +1,4 @@
-package com.example.QLBDH1.Entity;
+package com.example.WatchProject.Entity;
 
 import java.util.Set;
 

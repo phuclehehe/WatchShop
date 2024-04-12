@@ -1,13 +1,13 @@
-package com.example.QLBDH1;
+package com.example.WatchProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Qlbdh1Application {
+public class WatchProjrctApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Qlbdh1Application.class, args);
+		SpringApplication.run(WatchProjrctApplication.class, args);
 	}
 
 }

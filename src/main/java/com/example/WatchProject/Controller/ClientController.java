@@ -1,4 +1,4 @@
-package com.example.QLBDH1.Controller;
+package com.example.WatchProject.Controller;
 
 import java.util.List;
 
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.QLBDH1.Entity.CartEntity;
-import com.example.QLBDH1.Entity.ProductEntity;
-import com.example.QLBDH1.Entity.ProductTypeEntity;
-import com.example.QLBDH1.Service.ICartService;
-import com.example.QLBDH1.Service.IProductService;
-import com.example.QLBDH1.Service.IProductTypeService;
+import com.example.WatchProject.Entity.CartEntity;
+import com.example.WatchProject.Entity.ProductEntity;
+import com.example.WatchProject.Entity.ProductTypeEntity;
+import com.example.WatchProject.Service.ICartService;
+import com.example.WatchProject.Service.IProductService;
+import com.example.WatchProject.Service.IProductTypeService;
 
 @Controller
 @RequestMapping("")
@@ -80,7 +80,11 @@ public class ClientController {
 		return "login";
 	}
 	@GetMapping("/confirmation")
-	public String Confirmation(Model model) {
+	public String Confirmation(Model model,@RequestParam(name= "id") int account_id) {
+		List<CartEntity> cartEntities=this.cartService.listCart(account_id);
+		int totalCart=this.cartService.totalCart(account_id);
+		model.addAttribute("totalCart",totalCart);
+		model.addAttribute("Listcart", cartEntities);
 		return "confirmation";
 	}
 	
@@ -99,6 +103,6 @@ public class ClientController {
 			redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 			return "redirect:/shop";
 		}
-		return "redirect:/product_details/"+cart.getProduct_id();
+		return "redirect:/product_details/"+cart.getProduct().getProduct_id();
 	}
 }

@@ -93,13 +93,12 @@
                     <div class="card_area">
                         <div class="product_count_area">
                             <p>Quantity</p>
-                       		<input type="hidden"  name="product_id" th:value="${productDetail.product_id}">
+                       		<input type="hidden"  name="product" th:value="${productDetail.product_id}">
                             <input type="hidden"  name="account_id" value="1">
                             <div class="product_count d-inline-block">
                                 <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
                                 <input class="product_count_item input-number" name="product_quantity" type="text" value="1" min="0" max="10">
                                 <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
-                                <input type="hidden"  name="product_saleprice" th:value="${productDetail.product_saleprice}">
                             </div>
                             <p th:text="${productDetail.product_saleprice}"></p>
                         </div>

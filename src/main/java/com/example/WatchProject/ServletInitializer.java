@@ -1,4 +1,4 @@
-package com.example.QLBDH1;
+package com.example.WatchProject;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Qlbdh1Application.class);
+		return application.sources(WatchProjrctApplication.class);
 	}
 
 }

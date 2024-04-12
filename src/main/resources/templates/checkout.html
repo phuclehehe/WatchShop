@@ -142,13 +142,13 @@
                     <ul class="list">
                       <li>
                         <a>Product
-                          <span>Total</span>
+                          <span class="last">Total</span>
                         </a>
                       </li>
                       <li th:each="cart : ${Listcart}">
-                        <a>[[${cart.product_id}]]
+                        <a>[[${cart.product.product_name}]]
                           <span class="middle" th:text="'x '+${cart.product_quantity}"></span>
-                          <span class="last" th:text="${cart.product_saleprice * cart.product_quantity}"></span>
+                          <span class="last" th:text="${cart.product.product_saleprice * cart.product_quantity}"></span>
                         </a>
                       </li>
                     </ul>

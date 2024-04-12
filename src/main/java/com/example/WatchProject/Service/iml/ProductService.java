@@ -1,4 +1,4 @@
-package com.example.QLBDH1.Service.iml;
+package com.example.WatchProject.Service.iml;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.QLBDH1.Entity.ProductEntity;
-import com.example.QLBDH1.Entity.ProductTypeEntity;
-import com.example.QLBDH1.Repository.ProductRepository;
-import com.example.QLBDH1.Service.IProductService;
+import com.example.WatchProject.Entity.ProductEntity;
+import com.example.WatchProject.Entity.ProductTypeEntity;
+import com.example.WatchProject.Repository.ProductRepository;
+import com.example.WatchProject.Service.IProductService;
 
 @Service
 public class ProductService implements IProductService {

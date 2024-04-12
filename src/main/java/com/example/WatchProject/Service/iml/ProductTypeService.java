@@ -1,11 +1,11 @@
-package com.example.QLBDH1.Service.iml;
+package com.example.WatchProject.Service.iml;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.QLBDH1.Entity.ProductTypeEntity;
-import com.example.QLBDH1.Repository.ProductTypeRepository;
-import com.example.QLBDH1.Service.IProductTypeService;
+import com.example.WatchProject.Entity.ProductTypeEntity;
+import com.example.WatchProject.Repository.ProductTypeRepository;
+import com.example.WatchProject.Service.IProductTypeService;
 
 @Service
 public class ProductTypeService implements IProductTypeService{

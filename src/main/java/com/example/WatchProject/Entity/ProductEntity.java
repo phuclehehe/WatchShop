@@ -1,6 +1,7 @@
-package com.example.QLBDH1.Entity;
+package com.example.WatchProject.Entity;
 
 import java.sql.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,6 +41,17 @@ public class ProductEntity {
 	private ProductTypeEntity typeId;
 	@Column(name = "is_deleted")
 	private int is_deleted;
+	@OneToMany(mappedBy = "product")
+	private Set<CartEntity> carts;
+
+	public Set<CartEntity> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(Set<CartEntity> carts) {
+		this.carts = carts;
+	}
+
 	public Integer getProduct_id() {
 		return product_id;
 	}
@@ -46,7 +59,6 @@ public class ProductEntity {
 	public void setProduct_id(Integer product_id) {
 		this.product_id = product_id;
 	}
-
 
 	public SupplierEntity getSupplierEntity() {
 		return supplierEntity;
@@ -63,7 +75,6 @@ public class ProductEntity {
 	public void setTypeId(ProductTypeEntity typeId) {
 		this.typeId = typeId;
 	}
-
 
 	public String getProduct_name() {
 		return product_name;
@@ -112,7 +123,6 @@ public class ProductEntity {
 	public void setProduct_inprice(int product_inprice) {
 		this.product_inprice = product_inprice;
 	}
-
 
 	public int getIs_deleted() {
 		return is_deleted;

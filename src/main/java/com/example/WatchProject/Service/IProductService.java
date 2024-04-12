@@ -1,11 +1,11 @@
-package com.example.QLBDH1.Service;
+package com.example.WatchProject.Service;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.example.QLBDH1.Entity.ProductEntity;
-import com.example.QLBDH1.Entity.ProductTypeEntity;
+import com.example.WatchProject.Entity.ProductEntity;
+import com.example.WatchProject.Entity.ProductTypeEntity;
 
 public interface IProductService {
 	ProductEntity save(ProductEntity product);

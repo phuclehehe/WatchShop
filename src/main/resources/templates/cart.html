@@ -42,12 +42,12 @@
                           <img src="assets/img/gallery/card1.png" alt="" />
                         </div>
                         <div class="media-body">
-                          <p th:text="${cart.product_id}">Minimalistic shop for multipurpose use</p>
+                          <p th:text="${cart.product.product_name}"></p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <h5 th:text="${cart.product_saleprice}"></h5>
+                      <h5 th:text="${cart.product.product_saleprice}"></h5>
                     </td>
                     <td>
                       <div class="product_count">
@@ -57,7 +57,7 @@
                       </div>
                     </td>
                     <td>
-                      <h5 th:text="${cart.product_quantity * cart.product_saleprice}"></h5>
+                      <h5 th:text="${cart.product_quantity * cart.product.product_saleprice}"></h5>
                     </td>
                   </tr>
                   <tr class="bottom_button">
@@ -86,7 +86,7 @@
               </table>
               <div class="checkout_btn_inner float-right">
                 <a class="btn_1" href="shop">Continue Shopping</a>
-                <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+                <a class="btn_1 checkout_btn_1" th:href="@{/checkout?id=1}">Proceed to checkout</a>
               </div>
             </div>
           </div>

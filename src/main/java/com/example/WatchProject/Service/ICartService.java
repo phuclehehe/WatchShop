@@ -1,8 +1,8 @@
-package com.example.QLBDH1.Service;
+package com.example.WatchProject.Service;
 
 import java.util.List;
 
-import com.example.QLBDH1.Entity.CartEntity;
+import com.example.WatchProject.Entity.CartEntity;
 
 public interface ICartService {
 	Boolean addProductToCart(CartEntity cartEntity);
