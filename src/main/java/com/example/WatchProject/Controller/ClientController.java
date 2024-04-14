@@ -28,21 +28,32 @@ public class ClientController {
 	private IProductService productService;
 	@Autowired
 	private IProductTypeService productTypeService;
-	
+
 	@Autowired
 	private ICartService cartService;
+
 	@GetMapping("/home")
+	public String goHome(Model model) {
+		List<ProductEntity> listProduct= this.productService.getAll();
+		model.addAttribute("listProduct", listProduct);
+		return "index";
+	}
+	
+	@GetMapping("/")
 	public String Home(Model model) {
+		List<ProductEntity> listProduct= this.productService.getAll();
+		model.addAttribute("listProduct", listProduct);
 		return "index";
 	}
 
 	@GetMapping("/shop")
-	public String Shop(Model model,@RequestParam(name= "page", defaultValue = "1") int pageNo,@RequestParam(name="type", defaultValue = "1") int type) {
-		ProductTypeEntity typeproduct= productTypeService.findByName(type);
-		Page<ProductEntity> listProduct=productService.getAllbyType(pageNo, typeproduct);
+	public String Shop(Model model, @RequestParam(name = "page", defaultValue = "1") int pageNo,
+			@RequestParam(name = "type", defaultValue = "1") int type) {
+		ProductTypeEntity typeproduct = productTypeService.findByName(type);
+		Page<ProductEntity> listProduct = productService.getAllbyType(pageNo, typeproduct);
 		model.addAttribute("type", type);
 		model.addAttribute("totalPage", listProduct.getTotalPages());
-		model.addAttribute("currentPage",pageNo);
+		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("listProduct", listProduct);
 		return "shop";
 	}
@@ -53,23 +64,23 @@ public class ClientController {
 	}
 
 	@GetMapping("/cart")
-	public String Cart(Model model,@RequestParam(name= "id") int account_id) {
-		List<CartEntity> cartEntities=this.cartService.listCart(account_id);
-		int totalCart=this.cartService.totalCart(account_id);
-		model.addAttribute("totalCart",totalCart);
+	public String Cart(Model model, @RequestParam(name = "id") int account_id) {
+		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
+		int totalCart = this.cartService.totalCart(account_id);
+		model.addAttribute("totalCart", totalCart);
 		model.addAttribute("Listcart", cartEntities);
 		return "cart";
 	}
-	
+
 	@GetMapping("/checkout")
-	public String Checkout(Model model,@RequestParam(name= "id") int account_id) {
-		List<CartEntity> cartEntities=this.cartService.listCart(account_id);
-		int totalCart=this.cartService.totalCart(account_id);
-		model.addAttribute("totalCart",totalCart);
+	public String Checkout(Model model, @RequestParam(name = "id") int account_id) {
+		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
+		int totalCart = this.cartService.totalCart(account_id);
+		model.addAttribute("totalCart", totalCart);
 		model.addAttribute("Listcart", cartEntities);
 		return "checkout";
 	}
-	
+
 	@GetMapping("/contact")
 	public String Contact(Model model) {
 		return "contact";
@@ -79,30 +90,31 @@ public class ClientController {
 	public String Login(Model model) {
 		return "login";
 	}
+
 	@GetMapping("/confirmation")
-	public String Confirmation(Model model,@RequestParam(name= "id") int account_id) {
-		List<CartEntity> cartEntities=this.cartService.listCart(account_id);
-		int totalCart=this.cartService.totalCart(account_id);
-		model.addAttribute("totalCart",totalCart);
+	public String Confirmation(Model model, @RequestParam(name = "id") int account_id) {
+		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
+		int totalCart = this.cartService.totalCart(account_id);
+		model.addAttribute("totalCart", totalCart);
 		model.addAttribute("Listcart", cartEntities);
 		return "confirmation";
 	}
-	
+
 	@GetMapping("/product_details/{id}")
 	public String ProductDetails(Model model, @PathVariable("id") int id) {
-		ProductEntity product= this.productService.findByID(id);
+		ProductEntity product = this.productService.findByID(id);
 		model.addAttribute("productDetail", product);
-		CartEntity cartEntity= new CartEntity();
+		CartEntity cartEntity = new CartEntity();
 		model.addAttribute("cart", cartEntity);
 		return "product_details";
 	}
-	
+
 	@PostMapping("/shop")
-	public String addProductToCart(@ModelAttribute("cart") CartEntity cart,RedirectAttributes redirectAttributes) {
-		if(this.cartService.addProductToCart(cart)) {
+	public String addProductToCart(@ModelAttribute("cart") CartEntity cart, RedirectAttributes redirectAttributes) {
+		if (this.cartService.addProductToCart(cart)) {
 			redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 			return "redirect:/shop";
 		}
-		return "redirect:/product_details/"+cart.getProduct().getProduct_id();
+		return "redirect:/product_details/" + cart.getProduct().getProduct_id();
 	}
 }

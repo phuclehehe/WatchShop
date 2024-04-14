@@ -43,6 +43,8 @@ public class ProductEntity {
 	private int is_deleted;
 	@OneToMany(mappedBy = "product")
 	private Set<CartEntity> carts;
+	@OneToMany(mappedBy = "product_order")
+	private Set<OrderDetailEntity> orders;
 
 	public Set<CartEntity> getCarts() {
 		return carts;
