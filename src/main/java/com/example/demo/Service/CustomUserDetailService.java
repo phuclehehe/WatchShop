@@ -1,8 +1,8 @@
 package com.example.demo.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,24 +13,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.CustomUserDetail;
-import com.example.demo.Model.User;
-import com.example.demo.Model.UserRole;
-import com.example.demo.Repository.UserRepository;
+import com.example.demo.Model.RoleEntity;
+import com.example.demo.Model.UserEntity;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService{
 	@Autowired
-	private UserService userService;
+	private UserService service;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user= userService.findByUsername(username);
+		UserEntity user= service.findByUsername(username);
 		if(user==null) {
-		throw new UsernameNotFoundException("Not found username"); 
+			throw new UsernameNotFoundException("Not found username");
 		}
-		Collection<GrantedAuthority> authorities= new HashSet<>();
-		Set<UserRole> roles=user.getUserRoles();
-		for (UserRole userRole : roles) {
-			authorities.add(new SimpleGrantedAuthority(userRole.getRole().getName()));
+		Collection<GrantedAuthority> authorities=new HashSet<>();
+		RoleEntity role=user.getRole();
+		if(role!=null) {
+			authorities.add(new SimpleGrantedAuthority(role.getPermission_name()));
 		}
 		return new CustomUserDetail(user, authorities);
 	}

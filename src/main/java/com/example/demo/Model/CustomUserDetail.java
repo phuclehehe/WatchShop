@@ -6,32 +6,24 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetail implements UserDetails{
-	private User user;
-	private Collection<? extends GrantedAuthority> authorities;
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private UserEntity user;
+	Collection<? extends GrantedAuthority> authorities;
 	public CustomUserDetail() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	public CustomUserDetail(User user, Collection<? extends GrantedAuthority> authorities) {
+	public CustomUserDetail(UserEntity user, Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.user = user;
 		this.authorities = authorities;
 	}
-	
-	public User getUser() {
-		return user;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return authorities;
 	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
@@ -67,5 +59,5 @@ public class CustomUserDetail implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 }
