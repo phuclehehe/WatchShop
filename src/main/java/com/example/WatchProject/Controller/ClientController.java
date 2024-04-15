@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.WatchProject.Entity.AccountEntity;
 import com.example.WatchProject.Entity.CartEntity;
+import com.example.WatchProject.Entity.PermissionEntity;
 import com.example.WatchProject.Entity.ProductEntity;
 import com.example.WatchProject.Entity.ProductTypeEntity;
+import com.example.WatchProject.Repository.AccountRepository;
 import com.example.WatchProject.Service.ICartService;
 import com.example.WatchProject.Service.IProductService;
 import com.example.WatchProject.Service.IProductTypeService;
@@ -28,20 +32,22 @@ public class ClientController {
 	private IProductService productService;
 	@Autowired
 	private IProductTypeService productTypeService;
+	@Autowired
+	private AccountRepository userRepository;
 
 	@Autowired
 	private ICartService cartService;
 
 	@GetMapping("/home")
 	public String goHome(Model model) {
-		List<ProductEntity> listProduct= this.productService.getAll();
+		List<ProductEntity> listProduct = this.productService.getAll();
 		model.addAttribute("listProduct", listProduct);
 		return "index";
 	}
-	
+
 	@GetMapping("/")
 	public String Home(Model model) {
-		List<ProductEntity> listProduct= this.productService.getAll();
+		List<ProductEntity> listProduct = this.productService.getAll();
 		model.addAttribute("listProduct", listProduct);
 		return "index";
 	}
@@ -61,6 +67,11 @@ public class ClientController {
 	@GetMapping("/about")
 	public String About(Model model) {
 		return "about";
+	}
+
+	@GetMapping("/admin")
+	public String Admin(Model model) {
+		return "redirect:/admin/";
 	}
 
 	@GetMapping("/cart")
@@ -92,11 +103,11 @@ public class ClientController {
 	}
 
 	@GetMapping("/confirmation")
-	public String Confirmation(Model model, @RequestParam(name = "id") int account_id) {
-		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
-		int totalCart = this.cartService.totalCart(account_id);
-		model.addAttribute("totalCart", totalCart);
-		model.addAttribute("Listcart", cartEntities);
+	public String Confirmation(Model model) {
+//		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
+//		int totalCart = this.cartService.totalCart(account_id);
+//		model.addAttribute("totalCart", totalCart);
+//		model.addAttribute("Listcart", cartEntities);
 		return "confirmation";
 	}
 
@@ -116,5 +127,36 @@ public class ClientController {
 			return "redirect:/shop";
 		}
 		return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+	}
+
+	@GetMapping("/*")
+	public String Homepage(Model model) {
+		model.addAttribute("user", new AccountEntity());
+		return "index";
+	}
+
+	@GetMapping("/register")
+	public String Register(Model model) {
+		model.addAttribute("user", new AccountEntity());
+		return "register";
+	}
+
+	@PostMapping("/process_register")
+	public String processRegister(AccountEntity user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encoderPasswrod = encoder.encode(user.getPassword());
+		user.setPassword(encoderPasswrod);
+		userRepository.save(user);
+		return "redirect:login";
+	}
+
+	@GetMapping("/invalidSession")
+	public String invalidsession() {
+		return "invalidsession";
+	}
+
+	@GetMapping("/expiredSession")
+	public String expiredsession() {
+		return "expiredsession";
 	}
 }
