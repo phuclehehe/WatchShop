@@ -12,23 +12,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.WatchProject.Entity.AccountEntity;
-import com.example.WatchProject.Entity.CustomAccountDetails;
+import com.example.WatchProject.Entity.CustomUserDetails;
 import com.example.WatchProject.Entity.PermissionEntity;
 
 @Service
-public class CustomAccountService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private AccountService accountService;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		AccountEntity account=accountService.findByUsername(username);
-		if(account==null) {
-			throw new UsernameNotFoundException("Sai");
+		AccountEntity accountEntity=accountService.findByUsername(username);
+		if(accountEntity==null) {
+			throw new UsernameNotFoundException("Account Not Found");
 		}
-		Collection<GrantedAuthority> authorities=new HashSet<>();
-		PermissionEntity permission=account.getPermission();
-		authorities.add(new SimpleGrantedAuthority(permission.getName()));
-		return new CustomAccountDetails(account, authorities);
+		Collection<GrantedAuthority> authorities=new HashSet<GrantedAuthority>();
+		PermissionEntity permissionEntity=accountEntity.getPermission();
+		authorities.add(new SimpleGrantedAuthority(permissionEntity.getName()));
+		return new CustomUserDetails(accountEntity, authorities);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.WatchProject.Service;
 
-public interface IPermissonService {
+import com.example.WatchProject.Entity.PermissionEntity;
 
+public interface IPermissonService {
+	PermissionEntity findById(int id);
 }

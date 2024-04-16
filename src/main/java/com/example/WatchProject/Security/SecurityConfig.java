@@ -9,28 +9,40 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.WatchProject.Service.iml.CustomAccountService;
+import com.example.WatchProject.Service.iml.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	@Autowired
-	private CustomAccountService accountService;
-	@Bean 
-	BCryptPasswordEncoder bCryptPasswordEncoder() {
+	private CustomUserDetailsService detailsService;
+
+	@Bean
+	BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 	@Bean
-	SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception{
-		httpSecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests((auth)-> auth
+	SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
+		http.csrf(csrf->csrf.disable());
+		http.authorizeHttpRequests(auth->auth
 				.requestMatchers("/*").permitAll()
 				.requestMatchers("/admin/**").hasAuthority("ADMIN")
-				.anyRequest().authenticated()).formLogin(login->login.loginPage("/login").loginProcessingUrl("/login")
-						.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/admin"));
-		return httpSecurity.build();
+				.anyRequest().authenticated()
+				);
+		http.formLogin(login->login
+				.loginPage("/login")
+				.loginProcessingUrl("/login")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.defaultSuccessUrl("/")
+				
+				);
+		return http.build();
 	}
+
 	@Bean
-	WebSecurityCustomizer webSecurityCustomizer() {
-		return (web)->web.ignoring().requestMatchers("/static/**","/assets/**");
+	WebSecurityCustomizer customizer() {
+		return web -> web.ignoring().requestMatchers("/static/**", "/assets/**");
 	}
+
 }

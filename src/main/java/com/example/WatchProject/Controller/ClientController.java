@@ -24,6 +24,7 @@ import com.example.WatchProject.Repository.AccountRepository;
 import com.example.WatchProject.Service.ICartService;
 import com.example.WatchProject.Service.IProductService;
 import com.example.WatchProject.Service.IProductTypeService;
+import com.example.WatchProject.Service.iml.PermissionService;
 
 @Controller
 @RequestMapping("")
@@ -34,7 +35,8 @@ public class ClientController {
 	private IProductTypeService productTypeService;
 	@Autowired
 	private AccountRepository userRepository;
-
+	@Autowired
+	private PermissionService permissionService;
 	@Autowired
 	private ICartService cartService;
 
@@ -103,12 +105,17 @@ public class ClientController {
 	}
 
 	@GetMapping("/confirmation")
-	public String Confirmation(Model model) {
-//		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
-//		int totalCart = this.cartService.totalCart(account_id);
-//		model.addAttribute("totalCart", totalCart);
-//		model.addAttribute("Listcart", cartEntities);
+	public String Confirmation(Model model, @PathVariable("id") int account_id) {
+		List<CartEntity> cartEntities = this.cartService.listCart(account_id);
+		int totalCart = this.cartService.totalCart(account_id);
+		model.addAttribute("totalCart", totalCart);
+		model.addAttribute("Listcart", cartEntities);
 		return "confirmation";
+	}
+	@PostMapping("/confirmation")
+	public String Order(Model model,@ModelAttribute("order") CartEntity cart) {
+		
+		return "redirect:/confirmation";
 	}
 
 	@GetMapping("/product_details/{id}")
@@ -146,6 +153,8 @@ public class ClientController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encoderPasswrod = encoder.encode(user.getPassword());
 		user.setPassword(encoderPasswrod);
+		PermissionEntity permissionEntity=permissionService.findById(3);
+		user.setPermission(permissionEntity);
 		userRepository.save(user);
 		return "redirect:login";
 	}

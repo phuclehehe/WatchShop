@@ -5,19 +5,9 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomAccountDetails implements UserDetails {
-	private AccountEntity account;
+public class CustomUserDetails implements UserDetails {
+	private AccountEntity accountEntity;
 	private Collection<? extends GrantedAuthority> authorities;
-
-	public CustomAccountDetails() {
-		
-	}
-
-	public CustomAccountDetails(AccountEntity account, Collection<? extends GrantedAuthority> authorities) {
-		super();
-		this.account = account;
-		this.authorities = authorities;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,16 +15,26 @@ public class CustomAccountDetails implements UserDetails {
 		return authorities;
 	}
 
+	public CustomUserDetails() {
+		super();
+	}
+
+	public CustomUserDetails(AccountEntity accountEntity, Collection<? extends GrantedAuthority> authorities) {
+		super();
+		this.accountEntity = accountEntity;
+		this.authorities = authorities;
+	}
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return account.getPassword();
+		return accountEntity.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return account.getUsername();
+		return accountEntity.getUsername();
 	}
 
 	@Override
