@@ -136,8 +136,14 @@ public class ClientController {
 	}
 
 	@PostMapping("confirmation")
-	public String Order(Model model, @ModelAttribute("order") OrderEntity order, @ModelAttribute("orderdetail") OrderDetailEntity orderdetail) {
-		if (this.orderService.AddtoOrder(order)&& this.detailService.AddtoOrderDetail(orderdetail)) {
+	public String Order(Model model, @ModelAttribute("order") OrderEntity order) {
+		if (this.orderService.AddtoOrder(order)) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String username = authentication.getName();
+			AccountEntity accountEntity=accountService.findByUsername(username);
+			OrderEntity orderEntity=this.orderService.getOneById(accountEntity.getAccount_id());
+			model.addAttribute("account", accountEntity);
+			model.addAttribute("order", orderEntity);
 			return "confirmation";
 		}
 		return "shop";

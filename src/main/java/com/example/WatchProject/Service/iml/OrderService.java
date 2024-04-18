@@ -1,5 +1,7 @@
 package com.example.WatchProject.Service.iml;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,26 @@ public class OrderService implements IOrderService{
 		}
 		return false;
 	}
-
+	@Override
+	public OrderEntity getOneById(int id) {
+		try {
+			OrderEntity orderEntity=this.orderRepository.getOneByAccountId(id);
+			return orderEntity;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@Override
+	public List<OrderEntity> getAllByAccountId(int account_id) {
+		try {
+			List<OrderEntity> list=this.orderRepository.getAllByAccountId(account_id);
+			return list;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

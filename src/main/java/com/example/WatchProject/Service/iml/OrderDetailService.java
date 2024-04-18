@@ -1,5 +1,7 @@
 package com.example.WatchProject.Service.iml;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,17 @@ public class OrderDetailService implements IOrderDetailService{
 			e.printStackTrace();
 		}
 		return false;
+	}
+	@Override
+	public List<OrderDetailEntity> getByOrderId(int order_id) {
+		try {
+			List<OrderDetailEntity> list=this.detailRepository.getAllByOrderId(order_id);
+			return list;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
