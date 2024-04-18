@@ -44,7 +44,10 @@ public class CartService implements ICartService{
 
 	@Override
 	public int totalCart(int account_id) {
-		return this.cartRepository.Total(account_id);
+		if(!this.cartRepository.listCart(account_id).isEmpty()) {
+			return this.cartRepository.Total(account_id);
+		}
+		return 0;
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.example.WatchProject.Entity;
 
-import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -11,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class OrderEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,7 @@ public class OrderEntity {
 	@Column(name = "order_money")
 	private Integer order_money;
 	@Column(name = "order_date")
-	private Date order_date;
+	private String order_date;
 
 	public Integer getOrder_id() {
 		return Order_id;
@@ -57,12 +56,14 @@ public class OrderEntity {
 		this.order_money = order_money;
 	}
 
-	public Date getOrder_date() {
+	public String getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(Date order_date) {
+	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
 	}
+
+
 
 }

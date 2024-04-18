@@ -15,17 +15,10 @@
                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
-                                    <li><a href="../home">Home</a></li>
-                                    <li><a href="../shop">shop</a></li>
-                                    <li><a href="../about">about</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li><a href="../cart">Cart</a></li>
-                                            <li><a href="../confirmation">Confirmation</a></li>
-                                            <li><a href="../checkout">Product Checkout</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="../contact">Contact</a></li>
+                                    <li><a th:href="@{../home}">Home</a></li>
+                                    <li><a href="@{../shop}">shop</a></li>
+                                    <li><a href="@{../about}">about</a></li>
+                                    <li><a href="@{../contact}">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -37,8 +30,8 @@
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
-                                <li> <a href="../login"><span class="flaticon-user"></span></a></li>
-                                <li><a href="../cart"><span class="flaticon-shopping-cart"></span></a> </li>
+                                <li> <a href="@{../login}"><span class="flaticon-user"></span></a></li>
+                                <li><a th:href="@{'/cart?id='+${#authentication.name != anonymousUser ? #authentication.name : null}}"><span class="flaticon-shopping-cart"></span></a> </li>
                             </ul>
                         </div>
                     </div>
@@ -89,12 +82,12 @@
                     <p th:text="${productDetail.product_description}">
                        
                     </p>
-                    <form th:action="@{/shop}" th:method="post" th:object="${cart}" >
+                    <form th:action="@{/shop}" th:method="post" th:object="${cart}" sec:authorize="isAuthenticated()" >
                     <div class="card_area">
                         <div class="product_count_area">
                             <p>Quantity</p>
                        		<input type="hidden"  name="product" th:value="${productDetail.product_id}">
-                            <input type="hidden"  name="account_id" value="1">
+                            <input type="hidden"  name="account_id" th:value="${accountid}">
                             <div class="product_count d-inline-block">
                                 <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
                                 <input class="product_count_item input-number" name="product_quantity" type="text" value="1" min="0" max="10">
