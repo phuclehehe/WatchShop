@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-6 col-lx-4">
               <div class="single_confirmation_details">
-                <h4>Order Imformation</h4>
+                <h4>Order Information</h4>
                 <ul>
                 <li>
                    	<p>Customer Name:</p><span th:text="${account.customer_name}"></span>
@@ -78,21 +78,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr >
-                      <th colspan="2"><span>Pixelstore fresh Blackberry</span></th>
-                      <th>x02</th>
-                      <th> <span>$720.00</span></th>
+                     <tr th:each="product : ${details}" >
+                      <th colspan="2"><span th:text="${product.product_order.product_name}"></span></th>
+                      <th th:text="${product.product_quantity}"></th>
+                      <th><span th:text="${product.product_order.product_saleprice * product.product_quantity}"></span></th>
                     </tr>
                     <tr>
-                      <th colspan="3">Subtotal</th>
-                      <th> <span>$2160.00</span></th>
+                      <th colspan="3">Sub Total</th>
+                      <th><span th:text="${order.order_money}"></span></th>
                     </tr>
                   </tbody>
                   <tfoot>
-                    <tr>
-                      <th scope="col" colspan="3">Quantity</th>
-                      <th scope="col">Total</th>
-                    </tr>
                   </tfoot>
                 </table>
               </div>
