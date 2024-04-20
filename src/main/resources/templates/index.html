@@ -166,7 +166,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" th:each="product,index : ${listProduct}" th:if="${product.is_deleted == 1 && index.index < 6}">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" th:each="product,index : ${listProduct}" th:if="${product.is_deleted == 0 && index.index < 6}">
                         <a th:href="@{/product_details/{id}(id=${product.product_id})}">
                         <div class="single-popular-items mb-50 text-center">
                             <div class="popular-img">

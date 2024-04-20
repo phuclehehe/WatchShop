@@ -57,24 +57,17 @@
                     <td>
                       <h5 th:text="${cart.product_quantity * cart.product.product_saleprice}"></h5>
                     </td>
-                  </tr>
-                  <tr class="bottom_button">
                     <td>
-                      <a class="btn_1" href="#">Update Cart</a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Close Coupon</a>
-                      </div>
+                     <a class="btn" th:href="@{'/cart?delete='+${cart.product.product_id}}">X</a>
                     </td>
                   </tr>
                   <tr>
-                    <td></td>
-                    <td></td>
                     <td>
                       <h5>Sub total</h5>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
                     </td>
                     <td>
                       <h5 th:text="${totalCart}"></h5>
@@ -84,7 +77,7 @@
               </table>
               <div class="checkout_btn_inner float-right">
                 <a class="btn_1" href="shop">Continue Shopping</a>
-                <a class="btn_1 checkout_btn_1" th:href="@{'/checkout?id='+${#authentication.name != anonymousUser ? #authentication.name : null}}">Proceed to checkout</a>
+                <a class="btn_1 checkout_btn_1" th:href="@{/checkout}">Proceed to checkout</a>
               </div>
             </div>
           </div>

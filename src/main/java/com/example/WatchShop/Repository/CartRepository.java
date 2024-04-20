@@ -22,4 +22,7 @@ public interface CartRepository extends JpaRepository<CartEntity, Integer> {
 
 	@Query(value = "Select * from cart where product_id= ?1 and account_id= ?2", nativeQuery = true)
 	CartEntity findProductFromCart(int product_id, int account_id);
+	
+	@Query(value = "Delete from cart where account_id= ?1 and product_id= ?2", nativeQuery = true)
+	Boolean delOneProductCart(int account_id, int product_id);
 }

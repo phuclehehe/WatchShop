@@ -33,7 +33,7 @@
 							<li><a th:href="@{/login}"><span class="flaticon-user"></span></a>
 							<p sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></p></li>
 							<li><a
-								th:href="@{'/cart?id='+${#authentication.name != anonymousUser ? #authentication.name : null}}"><span
+								th:href="@{/cart}"><span
 									class="flaticon-shopping-cart"></span></a></li>
 						</ul>
 					</div>

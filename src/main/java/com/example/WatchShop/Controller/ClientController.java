@@ -85,33 +85,39 @@ public class ClientController {
 	}
 
 	@GetMapping("cart")
-	public String Cart(Model model, @RequestParam(name = "id") String account_id) {
-		AccountEntity accountEntity = accountService.findByUsername(account_id);
+	public String Cart(Model model,@RequestParam(name = "delete", defaultValue = "0") int id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		if (accountEntity == null ) {
+		AccountEntity accountEntity = accountService.findByUsername(username);
+		if(accountEntity == null ) {
 			return "redirect:/login";
-		} 
-		if(!accountEntity.getUsername().equals(username)) {
-			return "redirect:/cart?id="+username;
 		}
+		CartEntity cartEntity = this.cartService.findProductFromCart(id, accountEntity.getAccount_id());
+		if (id == 0) {
 			List<CartEntity> cartEntities = this.cartService.listCart(accountEntity.getAccount_id());
 			int totalCart = this.cartService.totalCart(accountEntity.getAccount_id());
 			model.addAttribute("totalCart", totalCart);
 			model.addAttribute("Listcart", cartEntities);
 			return "cart";
+		}
+		if (cartEntity != null) {
+			this.cartService.delOneProductCart(accountEntity.getAccount_id(), id);
+			List<CartEntity> cartEntities = this.cartService.listCart(accountEntity.getAccount_id());
+			int totalCart = this.cartService.totalCart(accountEntity.getAccount_id());
+			model.addAttribute("totalCart", totalCart);
+			model.addAttribute("Listcart", cartEntities);
+			return "cart";
+		}
+		return "cart";
 	}
 
 	@GetMapping("checkout")
-	public String Checkout(Model model, @RequestParam(name = "id") String account_id) {
-		AccountEntity accountEntity = accountService.findByUsername(account_id);
+	public String Checkout(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		if (accountEntity == null) {
+		AccountEntity accountEntity = accountService.findByUsername(username);
+		if(accountEntity == null ) {
 			return "redirect:/login";
-		}
-		if(!accountEntity.getUsername().equals(username)) {
-			return "redirect:/checkout?id="+username;
 		}
 		List<CartEntity> cartEntities = this.cartService.listCart(accountEntity.getAccount_id());
 		int totalCart = this.cartService.totalCart(accountEntity.getAccount_id());
@@ -183,19 +189,19 @@ public class ClientController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		AccountEntity accountEntity = accountService.findByUsername(username);
-		CartEntity cartEntity=this.cartService.findProductFromCart(cart.getProduct().getProduct_id(),accountEntity.getAccount_id());
-		if(cartEntity == null) {
+		CartEntity cartEntity = this.cartService.findProductFromCart(cart.getProduct().getProduct_id(),
+				accountEntity.getAccount_id());
+		if (cartEntity == null) {
 			if (this.cartService.addProductToCart(cart)) {
-			redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
-			return "redirect:/shop";
-			}
-			else {
+				redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
+				return "redirect:/shop";
+			} else {
 				return "redirect:/product_details/" + cart.getProduct().getProduct_id();
 			}
-		}
-		else {
-		this.cartService.updateProductCart(cart.getProduct_quantity()+cartEntity.getProduct_quantity(),cart.getProduct().getProduct_id());
-		return "redirect:/shop";
+		} else {
+			this.cartService.updateProductCart(cart.getProduct_quantity() + cartEntity.getProduct_quantity(),
+					cart.getProduct().getProduct_id());
+			return "redirect:/shop";
 		}
 	}
 
@@ -233,4 +239,5 @@ public class ClientController {
 	public String expiredsession() {
 		return "expiredsession";
 	}
+
 }

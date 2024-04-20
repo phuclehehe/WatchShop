@@ -58,7 +58,7 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Page<ProductEntity> getAllbyType(Integer pageNo, ProductTypeEntity type) {
-		Pageable pageable= PageRequest.of(pageNo-1,1);
+		Pageable pageable= PageRequest.of(pageNo-1,6);
 		return this.productRepository.findByTypeId(type, pageable);
 	}
 

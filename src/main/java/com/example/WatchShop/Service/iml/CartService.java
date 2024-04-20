@@ -67,4 +67,16 @@ public class CartService implements ICartService{
 		return this.cartRepository.findProductFromCart(product_id, account_id);
 	}
 
+	@Override
+	public Boolean delOneProductCart(int account_id, int product_id) {
+		try {
+			this.cartRepository.delOneProductCart(account_id, product_id);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
