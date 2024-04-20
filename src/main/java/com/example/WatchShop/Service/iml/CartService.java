@@ -50,4 +50,21 @@ public class CartService implements ICartService{
 		return 0;
 	}
 
+	@Override
+	public Boolean updateProductCart(int quantity, int product_id) {
+		try {
+			this.cartRepository.updateProductCart(quantity, product_id);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public CartEntity findProductFromCart(int product_id, int account_id) {
+		return this.cartRepository.findProductFromCart(product_id, account_id);
+	}
+
 }

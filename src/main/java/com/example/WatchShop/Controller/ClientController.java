@@ -140,6 +140,7 @@ public class ClientController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		AccountEntity accountEntity = accountService.findByUsername(username);
+		this.cartService.delProductCart(accountEntity.getAccount_id());
 		OrderEntity orderEntity = this.orderService.getOneById(accountEntity.getAccount_id());
 		List<OrderDetailEntity> detailEntities = this.detailService.getByOrderId(orderEntity.getOrder_id());
 		model.addAttribute("details", detailEntities);
@@ -179,11 +180,23 @@ public class ClientController {
 
 	@PostMapping("shop")
 	public String addProductToCart(@ModelAttribute("cart") CartEntity cart, RedirectAttributes redirectAttributes) {
-		if (this.cartService.addProductToCart(cart)) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		AccountEntity accountEntity = accountService.findByUsername(username);
+		CartEntity cartEntity=this.cartService.findProductFromCart(cart.getProduct().getProduct_id(),accountEntity.getAccount_id());
+		if(cartEntity == null) {
+			if (this.cartService.addProductToCart(cart)) {
 			redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 			return "redirect:/shop";
+			}
+			else {
+				return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+			}
 		}
-		return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+		else {
+		this.cartService.updateProductCart(cart.getProduct_quantity()+cartEntity.getProduct_quantity(),cart.getProduct().getProduct_id());
+		return "redirect:/shop";
+		}
 	}
 
 	@GetMapping("*")
