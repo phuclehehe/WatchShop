@@ -62,4 +62,16 @@ public class ProductService implements IProductService {
 		return this.productRepository.findByTypeId(type, pageable);
 	}
 
+	@Override
+	public Boolean updateInventoryProduct(int quantity, int product_id) {
+		try {
+			this.productRepository.updateInventoryProduct(quantity, product_id);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

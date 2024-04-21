@@ -16,4 +16,5 @@ public interface IProductService {
 	int totalItem();
 	Page<ProductEntity> getAll(Integer pageNo);
 	Page<ProductEntity> getAllbyType(Integer pageNo,ProductTypeEntity Type);
+	Boolean updateInventoryProduct(int quantity,int product_id);
 }

@@ -85,11 +85,11 @@ public class ClientController {
 	}
 
 	@GetMapping("cart")
-	public String Cart(Model model,@RequestParam(name = "delete", defaultValue = "0") int id) {
+	public String Cart(Model model, @RequestParam(name = "delete", defaultValue = "0") int id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		AccountEntity accountEntity = accountService.findByUsername(username);
-		if(accountEntity == null ) {
+		if (accountEntity == null) {
 			return "redirect:/login";
 		}
 		CartEntity cartEntity = this.cartService.findProductFromCart(id, accountEntity.getAccount_id());
@@ -116,7 +116,7 @@ public class ClientController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		AccountEntity accountEntity = accountService.findByUsername(username);
-		if(accountEntity == null ) {
+		if (accountEntity == null) {
 			return "redirect:/login";
 		}
 		List<CartEntity> cartEntities = this.cartService.listCart(accountEntity.getAccount_id());
@@ -162,6 +162,10 @@ public class ClientController {
 			List<OrderDetailEntity> details = new ArrayList<>();
 			cartEntities.forEach(product -> {
 				details.add(new OrderDetailEntity(null, order, product.getProduct(), product.getProduct_quantity()));
+				ProductEntity productEntity = this.productService.findByID(product.getProduct().getProduct_id());
+				this.productService.updateInventoryProduct(
+						productEntity.getProduct_inventory() - product.getProduct_quantity(),
+						product.getProduct().getProduct_id());
 			});
 			details.forEach(product -> {
 				this.detailService.AddtoOrderDetail(product);
@@ -191,16 +195,25 @@ public class ClientController {
 		AccountEntity accountEntity = accountService.findByUsername(username);
 		CartEntity cartEntity = this.cartService.findProductFromCart(cart.getProduct().getProduct_id(),
 				accountEntity.getAccount_id());
+		ProductEntity productEntity = this.productService.findByID(cart.getProduct().getProduct_id());
 		if (cartEntity == null) {
-			if (this.cartService.addProductToCart(cart)) {
-				redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
-				return "redirect:/shop";
+			if (productEntity.getProduct_inventory() - cart.getProduct_quantity() < 0) {
+				if (this.cartService.addProductToCart(cart)) {
+					redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
+					return "redirect:/shop";
+				} else {
+					return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+				}
 			} else {
+				redirectAttributes.addFlashAttribute("Error",
+						"Không đủ số lượng sản phẩm trong kho ( Trong kho chỉ còn "
+								+ productEntity.getProduct_inventory() + " sản phẩm");
 				return "redirect:/product_details/" + cart.getProduct().getProduct_id();
 			}
 		} else {
 			this.cartService.updateProductCart(cart.getProduct_quantity() + cartEntity.getProduct_quantity(),
 					cart.getProduct().getProduct_id());
+			redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 			return "redirect:/shop";
 		}
 	}

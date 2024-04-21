@@ -95,7 +95,7 @@
                             </div>
                             <p th:text="${productDetail.product_saleprice}"></p>
                         </div>
-                    <div class="add_to_cart">
+                    <div class="add_to_cart" th:if="${productDetail.product_inventory}">
                         <button type="submit" value="submit" class="btn_3">Add to cart</button>
                     </div>
                     </div>
