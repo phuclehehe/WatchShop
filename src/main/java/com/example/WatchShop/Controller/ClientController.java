@@ -120,6 +120,9 @@ public class ClientController {
 			return "redirect:/login";
 		}
 		List<CartEntity> cartEntities = this.cartService.listCart(accountEntity.getAccount_id());
+		if(cartEntities.isEmpty()) {
+			return "redirect:/shop";
+		}
 		int totalCart = this.cartService.totalCart(accountEntity.getAccount_id());
 		OrderEntity order = new OrderEntity();
 		LocalDate localDate = LocalDate.now();
@@ -157,8 +160,12 @@ public class ClientController {
 
 	@PostMapping("confirmation")
 	public String Order(Model model, @ModelAttribute("order") OrderEntity order) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		AccountEntity accountEntity = accountService.findByUsername(username);
+		order.setCustomer_id(accountEntity);
 		if (this.orderService.AddtoOrder(order)) {
-			List<CartEntity> cartEntities = this.cartService.listCart(order.getCustomer_id());
+			List<CartEntity> cartEntities = this.cartService.listCart(order.getCustomer_id().getAccount_id());
 			List<OrderDetailEntity> details = new ArrayList<>();
 			cartEntities.forEach(product -> {
 				details.add(new OrderDetailEntity(null, order, product.getProduct(), product.getProduct_quantity()));
@@ -197,7 +204,7 @@ public class ClientController {
 				accountEntity.getAccount_id());
 		ProductEntity productEntity = this.productService.findByID(cart.getProduct().getProduct_id());
 		if (cartEntity == null) {
-			if (productEntity.getProduct_inventory() - cart.getProduct_quantity() < 0) {
+			if (productEntity.getProduct_inventory() >= cart.getProduct_quantity() ) {
 				if (this.cartService.addProductToCart(cart)) {
 					redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 					return "redirect:/shop";

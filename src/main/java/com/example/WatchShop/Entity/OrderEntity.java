@@ -7,8 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "orders")
 public class OrderEntity {
@@ -17,8 +20,9 @@ public class OrderEntity {
 	private Integer Order_id;
 	@OneToMany(mappedBy = "orders")
 	private Set<OrderDetailEntity> listOrderDetails;
-	@Column(name = "customer_id")
-	private Integer customer_id;
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private AccountEntity customer_id;
 	@Column(name = "order_money")
 	private Integer order_money;
 	@Column(name = "order_date")
@@ -40,11 +44,11 @@ public class OrderEntity {
 		this.listOrderDetails = listOrderDetails;
 	}
 
-	public Integer getCustomer_id() {
+	public AccountEntity getCustomer_id() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(Integer customer_id) {
+	public void setCustomer_id(AccountEntity customer_id) {
 		this.customer_id = customer_id;
 	}
 
@@ -63,7 +67,5 @@ public class OrderEntity {
 	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
 	}
-
-
 
 }
