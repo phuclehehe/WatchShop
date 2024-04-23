@@ -15,6 +15,18 @@ public class CustomUserDetails implements UserDetails {
 		return authorities;
 	}
 
+	public AccountEntity getAccountEntity() {
+		return accountEntity;
+	}
+
+	public void setAccountEntity(AccountEntity accountEntity) {
+		this.accountEntity = accountEntity;
+	}
+
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
 	public CustomUserDetails() {
 		super();
 	}

@@ -35,5 +35,8 @@ public class OrderDetailService implements IOrderDetailService{
 		}
 		return null;
 	}
-
+	@Override
+	public OrderDetailEntity getOneByOrderID(int order_id) {
+		return this.detailRepository.getOneByOrderID(order_id);
+	}
 }

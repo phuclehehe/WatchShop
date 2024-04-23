@@ -3,6 +3,9 @@
 <head th:replace="~{head :: head}"></head>
 
 <body>
+	<div class="alert alert-success" role="alert" th:if="${Success}">
+	    <span th:text="${Success}"></span>
+	</div>
 	<!--? Preloader Start -->
 	<div id="preloader-active">
 		<div
@@ -55,15 +58,6 @@
 					<div class="grid-list-view"></div>
 					<!-- Select items -->
 					<div class="select-this">
-						<form action="#">
-							<div class="select-itms">
-								<select name="select" id="select1">
-									<option value="">NewestArrivals</option>
-									<option value="">Price high to low</option>
-									<option value="">Most popular</option>
-								</select>
-							</div>
-						</form>
 					</div>
 				</div>
 				<!-- Nav Card -->
@@ -74,6 +68,8 @@
 						<div class="row">
 							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6"
 								th:each="product : ${listProduct}" th:if="${product.is_deleted == 0}">
+								<a href="product_details"
+									th:href="@{'/product_details?id='+${product.product_id}}">
 								<div class="single-popular-items mb-50 text-center">
 									<div class="popular-img">
 										<img src="assets/img/gallery/popular1.png" alt="">
@@ -85,14 +81,12 @@
 										</div>
 									</div>
 									<div class="popular-caption">
-										<h3>
-											<a href="product_details"
-												th:href="@{/product_details/{id}(id=${product.product_id})}"
-												th:text=${product.product_name}></a>
+										<h3 th:text=${product.product_name}>
 										</h3>
 										<span th:text="${product.product_saleprice}"></span>
 									</div>
 								</div>
+								</a>
 							</div>
 						</div>
 						<ul class="pagination" th:if="${totalPage != 0}">

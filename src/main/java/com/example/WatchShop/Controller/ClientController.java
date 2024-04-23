@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.WatchShop.Entity.AccountEntity;
 import com.example.WatchShop.Entity.CartEntity;
+import com.example.WatchShop.Entity.CustomUserDetails;
 import com.example.WatchShop.Entity.OrderDetailEntity;
 import com.example.WatchShop.Entity.OrderEntity;
 import com.example.WatchShop.Entity.PermissionEntity;
@@ -182,24 +183,21 @@ public class ClientController {
 		return "shop";
 	}
 
-	@GetMapping("product_details/{id}")
-	public String ProductDetails(Model model, @PathVariable("id") int id) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		AccountEntity accountEntity = accountService.findByUsername(username);
+	@GetMapping("product_details")
+	public String ProductDetails(Model model, @RequestParam(name = "id", defaultValue = "0") int id) {
 		ProductEntity product = this.productService.findByID(id);
 		model.addAttribute("productDetail", product);
 		CartEntity cartEntity = new CartEntity();
-		model.addAttribute("accountid", accountEntity.getAccount_id());
 		model.addAttribute("cart", cartEntity);
 		return "product_details";
 	}
 
-	@PostMapping("shop")
+	@PostMapping("add-to-cart")
 	public String addProductToCart(@ModelAttribute("cart") CartEntity cart, RedirectAttributes redirectAttributes) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		AccountEntity accountEntity = accountService.findByUsername(username);
+		cart.setAccount_id(accountEntity.getAccount_id());
 		CartEntity cartEntity = this.cartService.findProductFromCart(cart.getProduct().getProduct_id(),
 				accountEntity.getAccount_id());
 		ProductEntity productEntity = this.productService.findByID(cart.getProduct().getProduct_id());
@@ -209,13 +207,13 @@ public class ClientController {
 					redirectAttributes.addFlashAttribute("Success", "Thêm thành công");
 					return "redirect:/shop";
 				} else {
-					return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+					return "redirect:/product_details?id=" + cart.getProduct().getProduct_id();
 				}
 			} else {
 				redirectAttributes.addFlashAttribute("Error",
 						"Không đủ số lượng sản phẩm trong kho ( Trong kho chỉ còn "
-								+ productEntity.getProduct_inventory() + " sản phẩm");
-				return "redirect:/product_details/" + cart.getProduct().getProduct_id();
+								+ productEntity.getProduct_inventory() + " sản phẩm)");
+				return "redirect:/product_details?id=" + cart.getProduct().getProduct_id();
 			}
 		} else {
 			this.cartService.updateProductCart(cart.getProduct_quantity() + cartEntity.getProduct_quantity(),
@@ -258,6 +256,70 @@ public class ClientController {
 	@GetMapping("expiredSession")
 	public String expiredsession() {
 		return "expiredsession";
+	}
+	@GetMapping("information")
+	public String information_index(Model model, Authentication authentication) {
+
+		if (authentication != null && authentication.isAuthenticated()) {
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			CustomUserDetails accountEntity = ((CustomUserDetails) authentication.getPrincipal());
+			String name = ((CustomUserDetails) accountEntity).getAccountEntity().getCustomer_name().toString();
+			String address = ((CustomUserDetails) accountEntity).getAccountEntity().getCustomer_address().toString();
+			String phone = ((CustomUserDetails) accountEntity).getAccountEntity().getCustomer_phone().toString();
+			String email = ((CustomUserDetails) accountEntity).getAccountEntity().getCustomer_email().toString();
+			String username = ((CustomUserDetails) accountEntity).getAccountEntity().getUsername().toString();
+			AccountEntity entity = accountService.findByUsername(username);
+			model.addAttribute("user", entity);
+			model.addAttribute("name", name);
+			model.addAttribute("address", address);
+			model.addAttribute("phone", phone);
+			model.addAttribute("email", email);
+
+			return "information";
+		}
+		return "login";
+
+	}
+
+	@PostMapping("process_infor")
+	public String process_infor(@ModelAttribute("user") AccountEntity user) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails accountEntity = ((CustomUserDetails) authentication.getPrincipal());
+		int id = ((CustomUserDetails) accountEntity).getAccountEntity().getAccount_id();
+		accountService.update(user.getCustomer_name(), user.getCustomer_email(), user.getCustomer_address(),
+				user.getCustomer_phone(), id);
+		return "redirect:information";
+	}
+
+	@GetMapping("orderlist")
+	public String orderlist_index(Model model, Authentication authentication) {
+		if (authentication != null && authentication.isAuthenticated()) {
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			CustomUserDetails accountEntity = ((CustomUserDetails) authentication.getPrincipal());
+			int id_user = accountEntity.getAccountEntity().getAccount_id();
+			List<OrderEntity> order_entity = orderService.getAllByAccountId(id_user);
+			model.addAttribute("order", order_entity);
+			return "orderlist";
+		}
+		return "login";
+	}
+	@GetMapping("orderlistdetail/{id}")
+	public String detail_orderlist(Model model, Authentication authentication,@PathVariable("id")OrderEntity id_order) {
+		
+		if (authentication != null && authentication.isAuthenticated()) {
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+			CustomUserDetails accountEntity = ((CustomUserDetails) authentication.getPrincipal());
+			OrderDetailEntity detailEntities = this.detailService.getOneByOrderID(id_order.getOrder_id());
+			List<OrderDetailEntity >listDetail=  detailService.getByOrderId(id_order.getOrder_id());
+			String username= accountEntity.getAccountEntity().getUsername().toString();
+			AccountEntity entity=accountService.findByUsername(username);
+			model.addAttribute("account", entity);
+			model.addAttribute("orderdetail", detailEntities);
+			model.addAttribute("list", listDetail);
+			return "orderlistdetail";
+		}
+		return "login";
+		
 	}
 
 }
