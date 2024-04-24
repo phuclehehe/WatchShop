@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap text-center">
-                                <h2>Login</h2>
+                                <h2>Register</h2>
                             </div>
                         </div>
                     </div>
@@ -32,10 +32,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="login_part_text text-center">
                             <div class="login_part_text_iner">
-                                <h2>New to our Shop?</h2>
+                                <h2>Already have account ? </h2>
                                 <p>There are advances being made in science and technology
                                     everyday, and a good example of this is the</p>
-                                <a href="#" class="btn_3">Create an Account</a>
+                                <a th:href="@{/login}" class="btn_3">Enter to our shop</a>
                             </div>
                         </div>
                     </div>
@@ -45,6 +45,10 @@
                                 <h3>Welcome To Our Website <br>
                                     Please Complete Your Information</h3>
                                 <form class="row contact_form" th:action="@{/process_register}" method="post" th:object="${user}">
+                                     <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="password" name="name" value=""
+                                            placeholder="Enter your name">
+                                    </div>
                                     <div class="col-md-12 form-group p_star">
                                         <input type="text" class="form-control" id="name" name="username" value=""
                                             placeholder="Username">
@@ -54,8 +58,16 @@
                                             placeholder="Password">
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="confimpassword" value=""
-                                            placeholder="Confirm Password">
+                                        <input type="text" class="form-control" id="password" name="address" value=""
+                                            placeholder="Enter address">
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="email" class="form-control" id="password" name="email" value=""
+                                            placeholder="Enter email">
+                                    </div>
+                                    <div class="col-md-12 form-group p_star">
+                                        <input type="text" class="form-control" id="password" name="phonenumber" value=""
+                                            placeholder="Enter your phone number">
                                     </div>
                                         <button type="submit" value="submit" class="btn_3">
                                             Sign in
@@ -80,7 +92,7 @@
                             <div class="single-footer-caption mb-30">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="index.html"><img src="assets1/img/logo/logo2_footer.png" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
@@ -168,38 +180,38 @@
     
     <!-- JS here -->
 
-    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="./assets1/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets1/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets1/js/popper.min.js"></script>
+    <script src="./assets1/js/bootstrap.min.js"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./assets/js/jquery.slicknav.min.js"></script>
+    <script src="./assets1/js/jquery.slicknav.min.js"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./assets/js/owl.carousel.min.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
+    <script src="./assets1/js/owl.carousel.min.js"></script>
+    <script src="./assets1/js/slick.min.js"></script>
 
     <!-- One Page, Animated-HeadLin -->
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets1/js/wow.min.js"></script>
+    <script src="./assets1/js/animated.headline.js"></script>
     
     <!-- Scroll up, nice-select, sticky -->
-    <script src="./assets/js/jquery.scrollUp.min.js"></script>
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script src="./assets/js/jquery.sticky.js"></script>
-    <script src="./assets/js/jquery.magnific-popup.js"></script>
+    <script src="./assets1/js/jquery.scrollUp.min.js"></script>
+    <script src="./assets1/js/jquery.nice-select.min.js"></script>
+    <script src="./assets1/js/jquery.sticky.js"></script>
+    <script src="./assets1/js/jquery.magnific-popup.js"></script>
 
     <!-- contact js -->
-    <script src="./assets/js/contact.js"></script>
-    <script src="./assets/js/jquery.form.js"></script>
-    <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
-    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="./assets1/js/contact.js"></script>
+    <script src="./assets1/js/jquery.form.js"></script>
+    <script src="./assets1/js/jquery.validate.min.js"></script>
+    <script src="./assets1/js/mail-script.js"></script>
+    <script src="./assets1/js/jquery.ajaxchimp.min.js"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./assets1/js/plugins.js"></script>
+    <script src="./assets1/js/main.js"></script>
 
 </body>
     

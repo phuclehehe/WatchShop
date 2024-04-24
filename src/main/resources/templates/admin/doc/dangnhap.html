@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Đăng nhập | Website hệ thống bán hàng</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/fonts/fonts-dangnhap/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/animate/animate.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/css-hamburgers/hamburgers.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/select2/select2.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/css/util.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/css/main.css}">
+<link
+	th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css}">
+<script
+	th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"></script>
+<link rel="stylesheet"
+	th:href="@{https://use.fontawesome.com/releases/v5.8.2/css/all.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://unpkg.com/boxicons@latest/css/boxicons.min.css}">
+<!-- Main CSS-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css}">
+<!-- or -->
+<link rel="stylesheet"
+	th:href="@{https://unpkg.com/boxicons@latest/css/boxicons.min.css}">
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<link rel="stylesheet"
+	th:href="@{https://use.fontawesome.com/releases/v5.8.2/css/all.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css}">
+</head>
+<body>
+	<div class="limiter">
+		<header class="app-header">
+			<!-- Sidebar toggle button-->
+			<!-- Navbar Right Menu-->
+			<ul class="app-nav">
+				<!-- User Menu-->
+				<li><a th:attr="href=@{/}" class="btn btn-primary">Quay lại trang chủ</a></li>
+			</ul>
+		</header>
+		<div class="container-login100">
+
+			<div class="wrap-login100">
+
+				<a th:href="@{index}">
+					<div class="login100-pic js-tilt" data-tilt>
+
+						<img src="./assets/images/watch-store.jpg" alt="IMG">
+
+					</div>
+				</a>
+				<!--=====TIÊU ĐỀ======-->
+				<div class="login100-form validate-form">
+					<span class="login100-form-title"> <b>ĐĂNG NHẬP</b>
+					</span>
+					<!--=====FORM INPUT TÀI KHOẢN VÀ PASSWORD======-->
+					<form th:action="@{/login}" method="post" onsubmit="return validateForm()">
+						<div class="wrap-input100 validate-input">
+							<input class="input100" type="text" placeholder="Tài khoản"
+								name="username" id="username"> <span
+								class="focus-input100"></span> <span class="symbol-input100">
+								<i class='bx bx-user'></i>
+							</span>
+						</div>
+						<div class="wrap-input100 validate-input">
+							<input autocomplete="off" class="input100" type="password"
+								placeholder="Mật khẩu" name="current-password"
+								id="password-field"> <span toggle="#password-field"
+								class="bx fa-fw bx-hide field-icon click-eye"></span> <span
+								class="focus-input100"></span> <span class="symbol-input100">
+								<i class='bx bx-key'></i>
+							</span>
+						</div>
+						<div class="text-right p-t-12">
+							<a class="txt2" th:href="@{quenmk}"> Bạn quên mật khẩu? </a>
+						</div>
+						<!--=====ĐĂNG NHẬP======-->
+						<div class="container-login100-form-btn">
+							<input type="submit" value="Đăng nhập" id="submit"
+								onclick="return validateForm()" />
+						</div>
+						<!--=====LINK TÌM MẬT KHẨU======-->
+						<div class="p-t-12 text-center">
+
+							<a th:href="@{dangky}"> Đăng ký </a>
+
+						</div>
+						<div th:if="${error}" class="alert alert-danger">
+    						<p th:text="${error}"></p>
+						</div>
+						
+						<div class="p-t-12 text-center">
+
+							<a th:href="@{index}"> Đăng nhập tạm thời </a>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Javascript-->
+ <!--===============================================================================================-->
+        <script th:src="@{/js/main.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/bootstrap/js/popper.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/select2/select2.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+	
+	<script type="text/javascript">
+	
+		//show - hide mật khẩu
+		function myFunction() {
+			var x = document.getElementById("myInput");
+			if (x.type === "password") {
+				x.type = "text"
+			} else {
+				x.type = "password";
+			}
+		}
+		$(".click-eye").click(function() {
+			$(this).toggleClass("bx-show bx-hide");
+			var input = $($(this).attr("toggle"));
+			if (input.attr("type") == "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
+		// ktr ô tài khoản - mật khẩu để trống
+		function validateForm() {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password-field").value;
+
+			if (username.trim() === '' || password.trim() === '') {
+				var errorDiv = document.getElementById("error-message");
+				errorDiv.innerText = "Tài khoản và mật khẩu không được để trống!";
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</body>
+
+</html>

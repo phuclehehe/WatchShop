@@ -8,7 +8,7 @@
 				<div class="menu-wrapper">
 					<!-- Logo -->
 					<div class="logo">
-						<a th:href="@{/home}"><img th:src="@{/assets/img/logo/logo.png}"
+						<a th:href="@{/home}"><img th:src="@{/assets1/img/logo/logo.png}"
 							alt=""></a>
 					</div>
 					<!-- Main-menu -->
@@ -20,8 +20,9 @@
 								<li><a th:href="@{/about}">about</a></li>
 								<li><a href="contact">Contact</a></li>
 								<li> <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
-									<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
-									
+									<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>	
+								</li>
+								<li> <a th:href="@{/admin/home/pagecontrol}" sec:authorize="hasRole('ADMIN')">Admin</a>	
 								</li>
 								<li><a th:href="@{/information}">Information</a></li>
 								<li><a th:href="@{/orderlist}">Order</a></li>

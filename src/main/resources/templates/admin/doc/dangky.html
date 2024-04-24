@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Đăng nhập | Website hệ thống bán hàng</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/bootstrap/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/fonts/fonts-dangnhap/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/animate/animate.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/css-hamburgers/hamburgers.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/vendor/select2/select2.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/css/util.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/style_dangnhap/css/main.css}">
+<link
+	th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css}">
+<script
+	th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js}"></script>
+<link rel="stylesheet"
+	th:href="@{https://use.fontawesome.com/releases/v5.8.2/css/all.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://unpkg.com/boxicons@latest/css/boxicons.min.css}">
+<!-- Main CSS-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css}">
+<!-- or -->
+<link rel="stylesheet"
+	th:href="@{https://unpkg.com/boxicons@latest/css/boxicons.min.css}">
+<!-- Font-icon css-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<link rel="stylesheet"
+	th:href="@{https://use.fontawesome.com/releases/v5.8.2/css/all.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css}">
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="./assets/images/watch-store.jpg" alt="IMG">
+
+				</div>
+
+				<!--=====TIÊU ĐỀ======-->
+				<form action="addTK" method="post" onsubmit="return checkLogin()">
+					<span class="login100-form-title"> <b>Đăng Ký Tài Khoản</b>
+					</span>
+
+					<!--=====FORM INPUT TÀI KHOẢN VÀ PASSWORD======-->
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text"
+							placeholder="Nhập tên tài khoản" name="name" id="username">
+						<span class="focus-input100"></span> <span class="symbol-input100">
+							<i class='bx bx-user'></i>
+
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input autocomplete="off" class="input100" type="password"
+							placeholder="Mật khẩu" name="password" id="password-field">
+						<span toggle="#password-field"
+							class="bx fa-fw bx-hide field-icon click-eye"></span> <span
+							class="focus-input100"></span> <span class="symbol-input100">
+							<i class='bx bx-key'></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input autocomplete="off" class="input100" type="password"
+							placeholder="Nhập lại mật khẩu" name="repass" id="repassword">
+						<span toggle="#repassword"
+							class="bx fa-fw bx-hide field-icon click-eye"></span> <span
+							class="focus-input100"></span> <span class="symbol-input100">
+							<i class='bx bx-key'></i>
+						</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" placeholder="Họ và Tên"
+							name="hovaten" id="hovaten"> <span class="focus-input100"></span>
+						<span class="symbol-input100"> <i class='bx bx-happy-alt'></i>
+						</span>
+					</div>
+					<!--                        <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" placeholder="Nhập giới tính của bạn" name="gioitinh" id="gioitinh">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class='bx bx-male-sign'></i>
+                            </span>
+                        </div>-->
+
+					<div class="wrap-input100 validate-input">
+						<select class="input100" name="gioitinh" id="gioitinh">
+							<option value="Nam">Nam</option>
+							<option value="Nữ">Nữ</option>
+						</select> <span class="focus-input100"></span> <span
+							class="symbol-input100"> <i class='bx bx-male-sign'></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" placeholder="Email"
+							name="email" id="email"> <span class="focus-input100"></span>
+						<span class="symbol-input100"> <i class='bx bx-envelope'></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" placeholder="Phone"
+							name="sodienthoai" id="Phone"> <span
+							class="focus-input100"></span> <span class="symbol-input100">
+							<i class='bx bxs-phone-call'></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" placeholder="Address"
+							name="diachi" id="Address"> <span class="focus-input100"></span>
+						<span class="symbol-input100"> <i class='bx bx-map'></i>
+						</span>
+					</div>
+
+
+					<!--=====BUTTON ĐĂNG NHẬP======-->
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit" name="login">
+							Đăng ký</button>
+					</div>
+					<div class="text-center p-t-12">
+						<span class="txt1"> Quay lại </span> <a class="txt2"
+							th:href="@{dangnhap}"> Đăng nhập </a>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	 <!--===============================================================================================-->
+        <script th:src="@{/js/main.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/bootstrap/js/popper.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{/assets/vendor/select2/select2.min.js}"></script>
+        <!--===============================================================================================-->
+        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+		$('.js-tilt').tilt({
+			scale : 1.1
+		})
+	</script>
+	<script type="text/javascript">
+		function checkLogin() {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password-field").value;
+			var rpw = document.getElementById("repassword").value;
+			var hovaten = document.getElementById("hovaten").value;
+			var gioitinh = document.getElementById("gioitinh").value;
+			var email = document.getElementById("email").value;
+			var sodienthoai = document.getElementById("Phone").value;
+			var diachi = document.getElementById("Address").value;
+
+			if (username.trim() === "" || password.trim() === ""
+					|| email.trim() === "" || sodienthoai.trim() === ""
+					|| diachi.trim() === "" || hovaten.trim() === ""
+					|| gioitinh.trim() === "") {
+				swal("Lỗi", "Vui lòng điền đầy đủ thông tin", "error");
+				return false;
+			}
+			if (password !== rpw) {
+				swal("Lỗi", "Mật khẩu không khớp", "error");
+				return false;
+			}
+		}
+		//show - hide mật khẩu
+		function myFunction() {
+			var x = document.getElementById("myInput");
+			if (x.type === "password") {
+				x.type = "text"
+			} else {
+				x.type = "password";
+			}
+		}
+		function myFunction() {
+			var x = document.getElementById("myInput");
+			if (x.type === "password") {
+				x.type = "text"
+			} else {
+				x.type = "password";
+			}
+		}
+		$(".click-eye").click(function() {
+			$(this).toggleClass("bx-show bx-hide");
+			var input = $($(this).attr("toggle"));
+			if (input.attr("type") == "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
+		
+	</script>
+</body>
+</html>

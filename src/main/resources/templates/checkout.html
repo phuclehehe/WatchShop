@@ -28,20 +28,25 @@
                 <div class="col-lg-8">
                   <h3>Billing Details</h3>
                     <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="name" />
+                      <span>Name:</span>
+                      <input type="text" class="form-control" id="name" th:value="${account.customer_name}"/>
                     </div>
                     <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="phone"/>
+                      <span>Phone:</span>
+                      <input type="text" class="form-control" id="phone" th:value="${account.customer_phone}"/>
                     </div>
                     <div class="col-md-12 form-group p_star">
-                      <input type="text" class="form-control" id="email"/>
+                      <span>Address:</span>
+                      <input type="text" class="form-control" id="address" th:value="${account.customer_address}"/>
                     </div>
-                    <div class="col-md-6 form-group p_star">
-                      <input type="text" class="form-control" id="address"/>
+                    <div class="col-md-12 form-group p_star">
+                      <span>Email:</span>
+                      <input type="text" class="form-control" id="email" th:value="${account.customer_email}"/>
                     </div>
                 </div>
+               
                 <div class="col-lg-4">
-                  <form class="row contact_form" th:action="@{/confirmation}" th:method="post" th:object="${order}">
+                 <form class="row contact_form" th:action="@{/confirmation}" th:method="post" th:object="${order}">
                   <div class="order_box">
                     <h2>Your Order</h2>
                     <ul class="list">
@@ -75,7 +80,7 @@
                     </div>
                     </div>
                   </div>
-                 </form>
+                  </form>
                 </div>
               </div>
             </div>
