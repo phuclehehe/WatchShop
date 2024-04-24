@@ -191,7 +191,7 @@
 								mục</label> <select class="form-control"
 								th:field="${productDTO.type_id}">
 								<option value="0">-- Chọn danh mục --</option>
-								<option th:each="type : ${types}" th:text="${type.type_name}"
+								<option th:each="type : ${types}" th:text="${type.typeName}"
 									th:value="${type.type_id}"></option>
 							</select>
 						</div>
@@ -201,7 +201,7 @@
 								th:field="${productDTO.supplier_id}">
 								<option value="0">-- Chọn nhà cung cấp --</option>
 								<option th:each="supplier : ${suppliers}"
-									th:text="${supplier.supplier_name}"
+									th:text="${supplier.supplierName}"
 									th:value="${supplier.supplier_id}"></option>
 							</select>
 						</div>

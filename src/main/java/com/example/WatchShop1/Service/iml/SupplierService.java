@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.WatchShop1.Entity.SupplierEntity;
 import com.example.WatchShop1.Repository.SupplierRepository;
-import com.example.WatchShop1.Service.SupplierService;
+import com.example.WatchShop1.Service.ISupplierService;
 
 @Service
-public class SupplierServiceImpl implements SupplierService {
+public class SupplierService implements ISupplierService {
 
 	@Autowired
 	private SupplierRepository supplierRepository;

@@ -1,4 +1,5 @@
 package com.example.WatchShop1.Controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,26 +19,37 @@ import com.example.WatchShop1.Entity.ProductEntity;
 import com.example.WatchShop1.Entity.ProductTypeEntity;
 import com.example.WatchShop1.Entity.SupplierDTO;
 import com.example.WatchShop1.Entity.SupplierEntity;
-import com.example.WatchShop1.Service.SupplierService;
 import com.example.WatchShop1.Service.iml.ProductService;
 import com.example.WatchShop1.Service.iml.ProductTypeService;
+import com.example.WatchShop1.Service.iml.SupplierService;
 
 @Controller
+@RequestMapping("/admin")
 public class ProductController {
-	@Autowired
 	private ProductService productServiceImpl;
-	@Autowired
 	private ProductTypeService productTypeServiceImpl;
-	@Autowired
 	private SupplierService supplierServiceImpl;
 
+	@Autowired
 	public ProductController(ProductService productServiceImpl, ProductTypeService productTypeServiceImpl,
 			SupplierService supplierServiceImpl) {
 		this.productServiceImpl = productServiceImpl;
 		this.productTypeServiceImpl = productTypeServiceImpl;
 		this.supplierServiceImpl = supplierServiceImpl;
 	}
-
+	
+//	@GetMapping("/")
+//    public String home(Model model) {
+//		List<ProductEntity> productList = productServiceImpl.findAllProducts();
+//		model.addAttribute("products", productList);
+//		List<SupplierEntity> supplierList = supplierServiceImpl.getAllSuppliers();
+//		model.addAttribute("suppliers", supplierList);
+//		List<ProductTypeEntity> typeList = productTypeServiceImpl.getAllProductTypes();
+//		model.addAttribute("types", typeList);
+//		model.addAttribute("page","home");
+//		return "redirect:/home/pagecontrol?page=home"; 
+//        
+//    }
 	@GetMapping("/product/pagecontrol")
 	public String getPage(@RequestParam("page") String page, Model model) {
 		if ("QLSP".equals(page)) {
@@ -82,7 +95,7 @@ public class ProductController {
 	public String deleteSanpham(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
 		productServiceImpl.deleteSanpham(id);
 		redirectAttributes.addAttribute("deleteSuccess", true);
-		return "redirect:/product/pagecontrol?page=QLSP";
+		return "redirect:/admin/product/pagecontrol?page=QLSP";
 	}
 
 	
@@ -97,7 +110,7 @@ public class ProductController {
 		if (form_add_supplier != null) {
 			// Xử lý dữ liệu của biểu mẫu creat supplier
 			SupplierEntity supplier = new SupplierEntity();
-			supplier.setSupllierName(supplier_name);
+			supplier.setSupplierName(supplier_name);
 			supplier = supplierServiceImpl.creatSupplier(supplier);
 		} else if (form_add_product != null) {
 			// Xử lý lưu thông tin sản phẩm
@@ -111,13 +124,13 @@ public class ProductController {
 			// Xử lý khi không có biểu mẫu nào được gửi
 
 		}
-		return "redirect:/add_product/pagecontrol?page=Add_Product";
+		return "redirect:/admin/add_product/pagecontrol?page=Add_Product";
 	}
 	@PostMapping("/product/pagecontrol")
 	public String updateProduct(@ModelAttribute("productDTO") ProductDTO productDTO,BindingResult result,
 			Model model) {
 		
         productServiceImpl.updateProduct(productDTO);
-		return "redirect:/product/pagecontrol?page=QLSP";
+		return "redirect:/admin/product/pagecontrol?page=QLSP";
 	}
 }

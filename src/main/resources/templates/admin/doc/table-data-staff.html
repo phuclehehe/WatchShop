@@ -78,7 +78,7 @@
 					<div class="col-sm-2">
 
 						<a class="btn btn-add btn-sm"
-							th:href="@{/add_staff/pagecontrol(page='Add_Staff')}"
+							th:href="@{/admin/add_staff/pagecontrol(page='Add_Staff')}"
 							title="Thêm"><i class="fas fa-plus"></i> Tạo mới nhân viên</a>
 					</div>
 					<div class="col-sm-2">
@@ -99,8 +99,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<a class="btn btn-excel btn-sm" href="" title="In"><i
-							class="fas fa-file-excel"></i> Xuất Excel</a>
+						<a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
 					</div>
 					<div class="col-sm-2">
 						<a class="btn btn-delete btn-sm pdf-file" type="button" title="In"
@@ -142,7 +141,13 @@
 									<i class="fas fa-trash-alt"></i>
 								</button>
 									<button class="btn btn-primary btn-sm edit" type="button"
-										title="Sửa" data-toggle="modal" data-target="#ModalUP" > 
+										title="Sửa" data-toggle="modal" data-target="#ModalUP" 
+										th:data-customer-id="${employee.account_id}"
+										th:data-customer-name="${employee.customer_name}"
+										th:data-customer-phone="${employee.customer_phone}"
+										th:data-customer-address="${employee.customer_address}"
+										th:data-customer-email="${employee.customer_email}"
+										onclick="showEditModal(this)"> 
 										<i class="fas fa-edit"></i>
 									</button>
 								
@@ -177,8 +182,7 @@
 <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog"
 	aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-
+		<div class="modal-content"><form method="post" th:object="${accountDTO}" >
 			<div class="modal-body">
 				<div class="row">
 					<div class="form-group  col-md-12">
@@ -190,48 +194,38 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<label class="control-label">ID nhân viên</label> <input
-							class="form-control" type="text" required value="#CD2187"
-							disabled>
+							class="form-control" type="text" th:field="${accountDTO.account_id}"
+							id="customer_id" readonly>
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label">Họ và tên</label> <input
-							class="form-control" type="text" required value="Võ Trường">
+							class="form-control" type="text" required th:field="${accountDTO.customer_name}"
+							id="customer_name">
 					</div>
 					<div class="form-group  col-md-6">
 						<label class="control-label">Số điện thoại</label> <input
-							class="form-control" type="number" required value="09267312388">
+							class="form-control" type="text" required th:field="${accountDTO.customer_phone}"
+							id="customer_phone">
+					</div>
+					<div class="form-group  col-md-6">
+						<label class="control-label">Địa chỉ</label> <input
+							class="form-control" type="text" required th:field="${accountDTO.customer_address}"
+							id="customer_address">
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label">Địa chỉ email</label> <input
-							class="form-control" type="text" required
-							value="truong.vd2000@gmail.com">
-					</div>
-					<div class="form-group col-md-6">
-						<label class="control-label">Ngày sinh</label> <input
-							class="form-control" type="date" value="15/03/2000">
-					</div>
-					<div class="form-group  col-md-6">
-						<label for="exampleSelect1" class="control-label">Chức vụ</label>
-						<select class="form-control" id="exampleSelect1">
-							<option>Bán hàng</option>
-							<option>Tư vấn</option>
-							<option>Dịch vụ</option>
-							<option>Thu Ngân</option>
-							<option>Quản kho</option>
-							<option>Bảo trì</option>
-							<option>Kiểm hàng</option>
-							<option>Bảo vệ</option>
-							<option>Tạp vụ</option>
-						</select>
+							class="form-control" type="text" required th:field="${accountDTO.customer_email}"
+							id="customer_email">
 					</div>
 				</div>
 				<BR> <a href="#"
 					style="float: right; font-weight: 600; color: #ea0000;">Chỉnh
 					sửa nâng cao</a> <BR> <BR>
-				<button class="btn btn-save" type="button">Lưu lại</button>
+				<button class="btn btn-save" type="submit">Lưu lại</button>
 				<a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a> <BR>
 			</div>
 			<div class="modal-footer"></div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -260,14 +254,13 @@
 <script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
     // Hiển thị khung hỏi khi người dùng nhấp vào nút xóa
-    function confirmDelete(productId) {
-        var confirmationBox = document.getElementById("confirmationBox");
+    function confirmDelete(productId) {var confirmationBox = document.getElementById("confirmationBox");
         confirmationBox.style.display = "block";
 
         // Xử lý sự kiện khi người dùng xác nhận hoặc hủy bỏ
         document.getElementById("confirmButton").onclick = function() {
             // Chuyển hướng đến trang xóa sản phẩm khi người dùng xác nhận
-            window.location.href = "/QLBH/admin/qlnhanvien/delete/" + productId;
+            window.location.href = "/WatchShop1/admin/qlnhanvien/delete/" + productId;
         };
         document.getElementById("cancelButton").onclick = function() {
             // Ẩn khung hỏi khi người dùng hủy bỏ
@@ -347,8 +340,7 @@
       var dd = today.getDate();
       var mm = today.getMonth() + 1;
       var yyyy = today.getFullYear();
-      var h = today.getHours();
-      var m = today.getMinutes();
+      var h = today.getHours();var m = today.getMinutes();
       var s = today.getSeconds();
       m = checkTime(m);
       s = checkTime(s);
@@ -401,9 +393,32 @@
 
 
     //Modal
-    $("#show-emp").on("click", function () {
-      $("#ModalUP").modal({ backdrop: false, keyboard: false })
-    });
+//    $("#show-emp").on("click", function () {
+//      $("#ModalUP").modal({ backdrop: false, keyboard: false })
+//    });
+    function showEditModal(button) {
+    	
+        // Lấy các dữ liệu sản phẩm từ thuộc tính data
+        var customerId = button.getAttribute('data-customer-id');
+        var customerName = button.getAttribute('data-customer-name');
+        var customerPhone = button.getAttribute('data-customer-phone');
+        var customerAddress = button.getAttribute('data-customer-address');
+        var customerEmail = button.getAttribute('data-customer-email');
+        
+        // Log các giá trị để kiểm tra
+        //console.log("productId:", productId);
+
+
+        // Cập nhật các trường của modal với thông tin sản phẩm
+        $('#customer_id').val(customerId);
+        $('#customer_name').val(customerName);
+        $('#customer_phone').val(customerPhone);
+        $('#customer_address').val(customerAddress);
+        $('#customer_email').val(customerEmail);
+
+        // Kích hoạt modal
+        $('#ModalUP').modal('show');
+    }
   </script>
 </body>
 

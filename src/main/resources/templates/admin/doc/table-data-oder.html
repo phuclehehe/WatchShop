@@ -19,7 +19,7 @@
 					<div class="col-sm-2">
 
 						<a class="btn btn-add btn-sm"
-							th:href="@{/pagecontrol(page='adddonhang')}" title="Thêm"><i
+							th:href="@{/admin/pagecontrol(page='adddonhang')}" title="Thêm"><i
 							class="fas fa-plus"></i> Tạo mới đơn hàng</a>
 					</div>
 					<div class="col-sm-2">
@@ -76,13 +76,13 @@
 							<td><span th:each="detail : ${order.listOrderDetails}"> 
 									<span th:text="${detail.product_order.product_name} + ','"></span>
 							</span></td>
-							<td th:text="${#dates.format(order.order_date, 'dd/MM/yyyy')}"></td>
+							<td th:text="${order.order_date}"></td>
 							<td th:text="${order.order_money}+ ' đ'" ></td>
 							<td><span class="badge bg-success"
 								th:text="${order.order_status}"></span></td>
 							<td >
 								
-									<a th:href="@{/order_detail/pagecontrol(page='Order_Detail' , order_id=${order.order_id})}">Xem chi tiết</a>
+									<a th:href="@{/admin/order_detail/pagecontrol(page='Order_Detail' , order_id=${order.order_id})}">Xem chi tiết</a>
 								
 								</td>
 						</tr>

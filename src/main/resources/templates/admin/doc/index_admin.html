@@ -56,35 +56,35 @@
 		<hr>
 		<ul class="app-menu">
 			<li><a class="app-menu__item haha"
-				th:href="@{/POS/pagecontrol(page='POS')}"><i
+				th:href="@{/admin/POS/pagecontrol(page='POS')}"><i
 					class='app-menu__icon bx bx-cart-alt'></i> <span
 					class="app-menu__label">POS Bán Hàng</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/home/pagecontrol(page='home')}"><i
+				th:href="@{/admin/home/pagecontrol(page='home')}"><i
 					class='app-menu__icon bx bx-tachometer'></i><span
 					class="app-menu__label">Bảng điều khiển</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/customer/pagecontrol(page='QLKH')}"><i
+				th:href="@{/admin/customer/pagecontrol(page='QLKH')}"><i
 					class='app-menu__icon bx bx-user-voice'></i><span
 					class="app-menu__label">Quản lý khách hàng</span></a></li>
 			<li><a class="app-menu__item "
-				th:href="@{/staff/pagecontrol(page='QLNV')}"><i
+				th:href="@{/admin/staff/pagecontrol(page='QLNV')}"><i
 					class='app-menu__icon bx bx-run'></i> <span
 					class="app-menu__label">Quản lý nhân viên</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/product/pagecontrol(page='QLSP')}"><i
+				th:href="@{/admin/product/pagecontrol(page='QLSP')}"><i
 					class='app-menu__icon bx bx-purchase-tag-alt'></i><span
 					class="app-menu__label">Quản lý sản phẩm</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/account/pagecontrol(page='QLTK')}"><i
+				th:href="@{/admin/account/pagecontrol(page='QLTK')}"><i
 					class='app-menu__icon bx bx-id-card'></i><span
 					class="app-menu__label">Quản lý tài khoản</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/order/pagecontrol(page='QLĐH')}"><i
+				th:href="@{/admin/order/pagecontrol(page='QLĐH')}"><i
 					class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Quản
 						lý đơn hàng</span></a></li>
 			<li><a class="app-menu__item"
-				th:href="@{/report/pagecontrol(page='QLBC')}"><i
+				th:href="@{/admin/report/pagecontrol(page='QLBC')}"><i
 					class='app-menu__icon bx bx-pie-chart-alt-2'></i><span
 					class="app-menu__label">Báo cáo doanh thu</span></a></li>
 			<li><a class="app-menu__item" href=""><i
@@ -257,7 +257,15 @@
     }
   </script>
 	<script th:inline="javascript">
-
+                                    var pt = [[${page}]];
+                                    if (pt.trim() !== '') {
+                                        var title = pt.replace(/_/g, ' ').replace(/\b\w/g, function (l) {
+                                            return l.toUpperCase();
+                                        });
+                                        document.title = 'WATCH STORE | ' + title;
+                                    } else {
+                                        document.title = 'WATCH STORE ';
+                                    }
   </script>
 	<script>
     // Lấy tất cả các phần tử menu

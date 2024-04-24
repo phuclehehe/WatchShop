@@ -18,6 +18,8 @@ public interface IProductService {
 	Page<ProductEntity> getAll(Integer pageNo);
 	Page<ProductEntity> getAllbyType(Integer pageNo,ProductTypeEntity Type);
 	Boolean updateInventoryProduct(int quantity,int product_id);
+	
+	
 	List<ProductEntity> findAllProducts();
 	void deleteSanpham(Integer id);
 	ProductEntity getProductById(Integer id);

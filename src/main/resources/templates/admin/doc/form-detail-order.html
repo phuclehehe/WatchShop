@@ -70,9 +70,9 @@
               <div class="row">
 					<div class="form-group  col-md-12">
 						<span class="thong-tin-thanh-toan">
-							<p>Họ tên khách hàng: <h5 th:text="${orderdetails[0].order.account.customer_name}"></h5></p>
+							<p>Họ tên khách hàng: <h5 th:text="${orderdetails[0].orders.customer_id.customer_name}"></h5></p>
 
-							<p>Ngày tạo đơn hàng: <span th:text="${#dates.format(orderdetails[0].order.order_date, 'dd/MM/yyyy')}"></span></p>
+							<p>Ngày tạo đơn hàng: <span th:text="${orderdetails[0].orders.order_date}"></span></p>
 						</span>
 					</div>
 				</div>
@@ -91,14 +91,14 @@
             <tbody>
               <tr th:each=" orderdetail : ${orderdetails}">
             
-                <td th:text="${orderdetail.product.product_id}"></td>
-                <td th:text="${orderdetail.product.product_name}"></td>
+                <td th:text="${orderdetail.product_order.product_id}"></td>
+                <td th:text="${orderdetail.product_order.product_name}"></td>
                 <td>
-                	<img th:src="@{'/assets/img-sanpham/' + ${orderdetail.product.product_image}}" alt="" width="100px;">
+                	<img th:src="@{'/assets/img-sanpham/' + ${orderdetail.product_order.product_image}}" alt="" width="100px;">
                 </td>
                 <td th:text="${orderdetail.product_quantity}"></td>
                 <td>
-				    <span th:text="${#numbers.formatCurrency(orderdetail.product.product_saleprice * orderdetail.product_quantity)}"></span>
+				    <span th:text="${#numbers.formatCurrency(orderdetail.product_order.product_saleprice * orderdetail.product_quantity)}"></span>
 				</td>
 
 
@@ -113,11 +113,11 @@
 			</div>
 
           </div>
-         <a class="btn btn-save" th:href="@{/admin/qldonhang/approve(order_id=${orderdetails[0].order.order_id})}">Duyệt đơn</a>
+         <a class="btn btn-save" th:href="@{/admin/qldonhang/approve(order_id=${orderdetails[0].orders.order_id})}">Duyệt đơn</a>
 
 
 
-          <a class="btn btn-cancel" th:href="@{/order/pagecontrol?page=QLĐH}">Trở về</a>
+          <a class="btn btn-cancel" th:href="@{/admin/order/pagecontrol?page=QLĐH}">Trở về</a>
         </div>
         </div>
         </div>

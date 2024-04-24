@@ -99,8 +99,7 @@
 					</div>
 
 					<div class="col-sm-2">
-						<a class="btn btn-excel btn-sm" href="" title="In"><i
-							class="fas fa-file-excel"></i> Xuất Excel</a>
+						<a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
 					</div>
 					<div class="col-sm-2">
 						<a class="btn btn-delete btn-sm pdf-file" type="button" title="In"
@@ -142,7 +141,13 @@
 									<i class="fas fa-trash-alt"></i>
 								</button>
 									<button class="btn btn-primary btn-sm edit" type="button"
-										title="Sửa" data-toggle="modal" data-target="#ModalUP" > 
+										title="Sửa" data-toggle="modal" data-target="#ModalUP" 
+										th:data-customer-id="${customer.account_id}"
+										th:data-customer-name="${customer.customer_name}"
+										th:data-customer_phone="${customer.customer_phone}"
+										th:data-customer_address="${customer.customer_address}"
+										th:data-customer_email="${customer.customer_email}"
+										onclick="showEditModal(this)"> 
 										<i class="fas fa-edit"></i>
 									</button>
 								
@@ -163,60 +168,49 @@
 	aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
-
+			<form method="post" th:object="${accountDTO}" >
 			<div class="modal-body">
 				<div class="row">
 					<div class="form-group  col-md-12">
 						<span class="thong-tin-thanh-toan">
-							<h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+							<h5>Chỉnh sửa thông tin khách hàng cơ bản</h5>
 						</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<label class="control-label">ID nhân viên</label> <input
-							class="form-control" type="text" required value="#CD2187"
-							disabled>
+						<label class="control-label">ID khách hàng</label> <input class="form-control" type="text" th:field="${accountDTO.account_id}"
+							id="customer_id" readonly>
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label">Họ và tên</label> <input
-							class="form-control" type="text" required value="Võ Trường">
+							class="form-control" type="text" required th:field="${accountDTO.customer_name}"
+							id="customer_name">
 					</div>
 					<div class="form-group  col-md-6">
 						<label class="control-label">Số điện thoại</label> <input
-							class="form-control" type="number" required value="09267312388">
+							class="form-control" type="text" required th:field="${accountDTO.customer_phone}"
+							id="customer_phone">
+					</div>
+					<div class="form-group  col-md-6">
+						<label class="control-label">Địa chỉ</label> <input
+							class="form-control" type="text" required th:field="${accountDTO.customer_address}"
+							id="customer_address">
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label">Địa chỉ email</label> <input
-							class="form-control" type="text" required
-							value="truong.vd2000@gmail.com">
-					</div>
-					<div class="form-group col-md-6">
-						<label class="control-label">Ngày sinh</label> <input
-							class="form-control" type="date" value="15/03/2000">
-					</div>
-					<div class="form-group  col-md-6">
-						<label for="exampleSelect1" class="control-label">Chức vụ</label>
-						<select class="form-control" id="exampleSelect1">
-							<option>Bán hàng</option>
-							<option>Tư vấn</option>
-							<option>Dịch vụ</option>
-							<option>Thu Ngân</option>
-							<option>Quản kho</option>
-							<option>Bảo trì</option>
-							<option>Kiểm hàng</option>
-							<option>Bảo vệ</option>
-							<option>Tạp vụ</option>
-						</select>
+							class="form-control" type="text" required th:field="${accountDTO.customer_email}"
+							id="customer_email">
 					</div>
 				</div>
 				<BR> <a href="#"
 					style="float: right; font-weight: 600; color: #ea0000;">Chỉnh
 					sửa nâng cao</a> <BR> <BR>
-				<button class="btn btn-save" type="button">Lưu lại</button>
+				<button class="btn btn-save" type="submit">Lưu lại</button>
 				<a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a> <BR>
 			</div>
 			<div class="modal-footer"></div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -228,6 +222,12 @@
 </div>
 <div class="centered-alert" id="deleteSuccessAlert">
     <p>Khách hàng đã được xóa thành công.</p>
+    <button class="btn" onclick="hideConfirmation()">Oke</button>
+
+
+</div>
+<div class="centered-alert" id="updateSuccessAlert">
+    <p>Khách hàng đã được sửa thành công.</p>
     <button class="btn" onclick="hideConfirmation()">Oke</button>
 
 
@@ -248,8 +248,7 @@
   <!-- Page specific javascripts-->
   <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js}"></script>
   <!-- Data table plugin-->
-  <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/plugins/jquery.dataTables.min.js}"></script><script type="text/javascript" th:src="@{/js/plugins/dataTables.bootstrap.min.js}"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <script>
 // Hiển thị khung hỏi khi người dùng nhấp vào nút xóa
@@ -270,6 +269,22 @@ function confirmDelete(accountId) {
 </script>
 
 <script>
+    // Hàm để kiểm tra tham số truy vấn trong URL
+    function checkURLParams() {
+        // Lấy tham số truy vấn từ URL
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        // Kiểm tra xem tham số "deleteSuccess" có tồn tại và có giá trị là "true" không
+        if (urlParams.has('deleteSuccess') && urlParams.get('deleteSuccess') === 'true') {
+            // Nếu có, hiển thị thông báo xóa thành công
+            document.querySelector('.centered-alert').style.display = 'block';
+        }
+    }
+
+    // Gọi hàm kiểm tra khi trang được tải
+    window.onload = checkURLParams;
+</script>
+<script>
     // Hàm để ẩn thông báo và xóa tham số deleteSuccess=true khỏi URL
     function hideConfirmation() {
         // Ẩn thông báo
@@ -287,22 +302,6 @@ function confirmDelete(accountId) {
             window.history.replaceState({}, document.title, newUrl);
         }
     }
-</script>
-<script>
-    // Hàm để kiểm tra tham số truy vấn trong URL
-    function checkURLParams() {
-        // Lấy tham số truy vấn từ URL
-        var urlParams = new URLSearchParams(window.location.search);
-        
-        // Kiểm tra xem tham số "deleteSuccess" có tồn tại và có giá trị là "true" không
-        if (urlParams.has('deleteSuccess') && urlParams.get('deleteSuccess') === 'true') {
-            // Nếu có, hiển thị thông báo xóa thành công
-            document.querySelector('.centered-alert').style.display = 'block';
-        }
-    }
-
-    // Gọi hàm kiểm tra khi trang được tải
-    window.onload = checkURLParams;
 </script>
 <script>
     
@@ -332,8 +331,7 @@ function confirmDelete(accountId) {
       weekday[1] = "Thứ Hai";
       weekday[2] = "Thứ Ba";
       weekday[3] = "Thứ Tư";
-      weekday[4] = "Thứ Năm";
-      weekday[5] = "Thứ Sáu";
+      weekday[4] = "Thứ Năm";weekday[5] = "Thứ Sáu";
       weekday[6] = "Thứ Bảy";
       var day = weekday[today.getDay()];
       var dd = today.getDate();
@@ -393,10 +391,33 @@ function confirmDelete(accountId) {
 
 
     //Modal
-    $("#show-emp").on("click", function () {
-      $("#ModalUP").modal({ backdrop: false, keyboard: false })
-    });
-  </script>
+//    $("#show-emp").on("click", function () {
+//      $("#ModalUP").modal({ backdrop: false, keyboard: false })
+//    });
+    function showEditModal(button) {
+    	
+        // Lấy các dữ liệu sản phẩm từ thuộc tính data
+        var customerId = button.getAttribute('data-customer-id');
+        var customerName = button.getAttribute('data-customer-name');
+        var customerPhone = button.getAttribute('data-customer_phone');
+        var customerAddress = button.getAttribute('data-customer_address');
+        var customerEmail = button.getAttribute('data-customer_email');
+        
+        // Log các giá trị để kiểm tra
+        //console.log("productId:", productId);
+
+
+        // Cập nhật các trường của modal với thông tin sản phẩm
+        $('#customer_id').val(customerId);
+        $('#customer_name').val(customerName);
+        $('#customer_phone').val(customerPhone);
+        $('#customer_address').val(customerAddress);
+        $('#customer_email').val(customerEmail);
+
+        // Kích hoạt modal
+        $('#ModalUP').modal('show');
+    }
+    </script>
 
 
 </html>

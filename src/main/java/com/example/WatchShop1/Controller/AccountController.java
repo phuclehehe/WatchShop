@@ -1,32 +1,44 @@
 package com.example.WatchShop1.Controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.WatchShop1.Entity.AccountDTO;
 import com.example.WatchShop1.Entity.AccountEntity;
+import com.example.WatchShop1.Entity.PermissionEntity;
 import com.example.WatchShop1.Service.iml.AccountService;
-
+import com.example.WatchShop1.Service.iml.PermissionService;
 @Controller
+@RequestMapping("/admin")
 public class AccountController {
 	@Autowired
-	private AccountService accountService;
-	
-	public AccountController(AccountService accountService) {
-		this.accountService = accountService;
+	private AccountService accountServiceImpl;
+	@Autowired
+	private PermissionService roleServiceImpl;
+	public AccountController(AccountService accountServiceImpl, PermissionService roleServiceImpl) {
+		this.accountServiceImpl = accountServiceImpl;
+		this.roleServiceImpl = roleServiceImpl;
 	}
 	
 	@GetMapping("/account/pagecontrol")
 	public String getPage(@RequestParam("page") String page, Model model) {
 	    if ("QLTK".equals(page)) {
-	        List<AccountEntity> accountList = accountService.findAccounts();
+	        List<AccountEntity> accountList = accountServiceImpl.findAccounts();
 	        model.addAttribute("accounts", accountList);
+	        AccountDTO accountDTO = new AccountDTO();
+	    	model.addAttribute("accountDTO",accountDTO);
+	    	List<PermissionEntity> accountRoles = roleServiceImpl.getAllRole();
+	    	model.addAttribute("roles",accountRoles);
 	        model.addAttribute("page","QLTK");
 	        return "/admin/doc/index_admin";  // Return the name of the view to be displayed
 	    } else {
@@ -39,6 +51,10 @@ public class AccountController {
 	    if ("Add_Account".equals(page)) {
 //	        List<Account> accountList = accountService.getAllAccounts();
 //	        model.addAttribute("accounts", accountList);
+	    	AccountDTO accountDTO = new AccountDTO();
+	    	model.addAttribute("accountDTO",accountDTO);
+	    	List<PermissionEntity> accountRoles = roleServiceImpl.getAllRole();
+	    	model.addAttribute("roles",accountRoles);
 	        model.addAttribute("page","Add_Account");
 	        return "/admin/doc/index_admin";  // Return the name of the view to be displayed
 	    } else {
@@ -46,10 +62,25 @@ public class AccountController {
 	        return "error"; // Ví dụ: Trả về một trang lỗi nếu page không hợp lệ
 	    }
 	}
-	@GetMapping("/admin/qltaikhoan/delete/{id}")
+	
+	@PostMapping("/add_account/pagecontrol")
+	public String addCustomer(@ModelAttribute("accountDTO") AccountDTO accountDTO, Model model) {
+		accountServiceImpl.creatAccount(accountDTO);
+		return "redirect:/admin/add_account/pagecontrol?page=Add_Account";
+	}
+	
+	@GetMapping("/qltaikhoan/delete/{id}")
 	 public String deleteTaikhoan(@PathVariable("id") Integer id , RedirectAttributes redirectAttributes) {
-		accountService.deleteTaikhoan(id);
+		accountServiceImpl.deleteTaikhoan(id);
 		redirectAttributes.addAttribute("deleteSuccess", true);
-       return "redirect:/account/pagecontrol?page=QLTK";
+       return "redirect:/admin/account/pagecontrol?page=QLTK";
    }
+	
+	@PostMapping("/account/pagecontrol")
+	public String updateAccount(@ModelAttribute("accountDTO") AccountDTO accountDTO,BindingResult result,
+			Model model) {
+        accountServiceImpl.updateAccount(accountDTO);
+		return "redirect:/admin/account/pagecontrol?page=QLTK";
+	}
+	
 }

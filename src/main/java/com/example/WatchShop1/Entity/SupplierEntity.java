@@ -17,17 +17,17 @@ public class SupplierEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer supplier_id;
 	@Column(name = "supplier_name")
-	private String supllierName;
+	private String supplierName;
 	
 	@OneToMany(mappedBy = "supplierEntity")
 	private Set<ProductEntity> products;
 
-	public String getSupllierName() {
-		return supllierName;
+	public String getSupplierName() {
+		return supplierName;
 	}
 
-	public void setSupllierName(String supllierName) {
-		this.supllierName = supllierName;
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
 	}
 
 	public Integer getSupplier_id() {

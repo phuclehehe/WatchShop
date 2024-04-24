@@ -97,7 +97,7 @@
 					<div class="col-sm-2">
 
 						<a class="btn btn-add btn-sm"
-							th:href="@{/add_product/pagecontrol(page='Add_Product')}"
+							th:href="@{/admin/add_product/pagecontrol(page='Add_Product')}"
 							title="Thêm"><i class="fas fa-plus"></i> Tạo mới sản phẩm</a>
 					</div>
 					<div class="col-sm-2">
@@ -157,9 +157,9 @@
 								alt="" width="100px;"></td>
 							<td th:text="${product.product_inventory}"></td>
 							<td><span class="badge bg-success"
-								th:text="${product.supplier.supplier_name}"></span></td>
+								th:text="${product.supplierEntity.supplierName}"></span></td>
 							<td th:text="${product.product_saleprice} +' đ' "></td>
-							<td th:text="${product.producttype.type_name}"></td>
+							<td th:text="${product.typeId.typeName}"></td>
 							<td >
 								<button class="btn btn-primary btn-sm delete-product"
 									type="button" title="Xóa"
@@ -176,8 +176,8 @@
 										th:data-product-inprice="${product.product_inprice}"
 										th:data-product-description="${product.product_description}"
 										th:data-product-image="${product.product_image}"
-										th:data-supplier-id="${product.supplier.supplier_id}"
-										th:data-type-id="${product.producttype.type_id}"
+										th:data-supplier-id="${product.supplierEntity.supplier_id}"
+										th:data-type-id="${product.typeId.type_id}"
 										onclick="showEditModal(this)">
 									<i class="fas fa-edit"></i>
 								</button>
@@ -236,7 +236,7 @@
 					<div class="form-group col-md-6">
 						<label for="product_type" class="control-label">Danh mục</label>
 						<select class="form-control" id="product_type" th:field="${productDTO.type_id}">
-							<option th:each="type : ${types}" th:text="${type.type_name}"
+							<option th:each="type : ${types}" th:text="${type.typeName}"
 							th:value="${type.type_id}"></option>
 						</select>
 					</div>
@@ -244,7 +244,7 @@
 					<div class="form-group col-md-6">
 						<label for="supplier" class="control-label">Nhà cung cấp</label>
 						<select class="form-control" id="supplier" th:field="${productDTO.supplier_id}">
-							<option th:each="supplier : ${suppliers}" th:text="${supplier.supplier_name}"
+							<option th:each="supplier : ${suppliers}" th:text="${supplier.supplierName}"
 							 th:value="${supplier.supplier_id}" ></option>
 						</select>
 					</div>
@@ -362,7 +362,7 @@ MODAL
         // Xử lý sự kiện khi người dùng xác nhận hoặc hủy bỏ
         document.getElementById("confirmButton").onclick = function() {
             // Chuyển hướng đến trang xóa sản phẩm khi người dùng xác nhận
-            window.location.href = "/QLBH/admin/qlsanpham/delete/" + productId;
+            window.location.href = "/WatchShop1/admin/qlsanpham/delete/" + productId;
         };
         document.getElementById("cancelButton").onclick = function() {
             // Ẩn khung hỏi khi người dùng hủy bỏ

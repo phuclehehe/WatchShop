@@ -20,4 +20,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 	Boolean updateInventoryProduct(int quantity, int product_id);
 	@Query(value ="SELECT * FROM Product p WHERE p.is_deleted = 0", nativeQuery = true)
     List<ProductEntity> findAllProducts();
+	
+	@Query(value ="SELECT p FROM Product p WHERE p.is_deleted = 0 AND p.product_inventory = 0", nativeQuery = true)
+	List<ProductEntity> findSoldOut();
 }

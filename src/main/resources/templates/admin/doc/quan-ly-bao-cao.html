@@ -18,7 +18,7 @@
                 <div class="widget-small primary coloured-icon"><i class='icon  bx bxs-user fa-3x'></i>
                     <div class="info">
                         <h4>Tổng Nhân viên</h4>
-                        <p><b>26 nhân viên</b></p>
+                        <p><b th:text= "${staffNumber}"></b></p>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="widget-small info coloured-icon"><i class='icon bx bxs-purchase-tag-alt fa-3x' ></i>
                     <div class="info">
                         <h4>Tổng sản phẩm</h4>
-                        <p><b>8580 sản phẩm</b></p>
+                        <p><b th:text= "${productNumber}"></b></p>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="widget-small warning coloured-icon"><i class='icon fa-3x bx bxs-shopping-bag-alt'></i>
                     <div class="info">
                         <h4>Tổng đơn hàng</h4>
-                        <p><b>457 đơn hàng</b></p>
+                        <p><b th:text= "${orderAmount}"></b></p>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="widget-small danger coloured-icon"><i class='icon fa-3x bx bxs-info-circle' ></i>
                     <div class="info">
                         <h4>Bị cấm</h4>
-                        <p><b>4 nhân viên</b></p>
+                        <p><b th:text= "${banAmount}"></b></p>
                     </div>
                 </div>
             </div>
@@ -52,15 +52,7 @@
                 <div class="widget-small primary coloured-icon"><i class='icon fa-3x bx bxs-chart' ></i>
                     <div class="info">
                         <h4>Tổng thu nhập</h4>
-                        <p><b>104.890.000 đ</b></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="widget-small info coloured-icon"><i class='icon fa-3x bx bxs-user-badge' ></i>
-                    <div class="info">
-                        <h4>Nhân viên mới</h4>
-                        <p><b>3 nhân viên</b></p>
+                        <p><b th:text= "${totalSevenue}"></b></p>
                     </div>
                 </div>
             </div>
@@ -68,15 +60,14 @@
                 <div class="widget-small warning coloured-icon"><i class='icon fa-3x bx bxs-tag-x' ></i>
                     <div class="info">
                         <h4>Hết hàng</h4>
-                        <p><b>1 sản phẩm</b></p>
+                        <p><b th:text= "${soldOut}"></b></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="widget-small danger coloured-icon"><i class='icon fa-3x bx bxs-receipt' ></i>
                     <div class="info">
-                        <h4>Đơn hàng hủy</h4>
-                        <p><b>2 đơn hàng</b></p>
+                        <h4>Đơn hàng hủy</h4>/-strong/-heart:>:o:-((:-h<p><b th:text= "${cancelOrderAmount}"></b></p>
                     </div>
                 </div>
             </div>
@@ -140,8 +131,7 @@
                         <div>
                             <h3 class="tile-title">TỔNG ĐƠN HÀNG</h3>
                         </div>
-                        <div class="tile-body">
-                            <table class="table table-hover table-bordered" id="sampleTable">
+                        <div class="tile-body"><table class="table table-hover table-bordered" id="sampleTable">
                                 <thead>
                                     <tr>
                                             <th>ID đơn hàng</th>
@@ -188,8 +178,7 @@
                                             <td>19.770.000 đ</td>
                                     </tr>
                                     <tr>
-                                            <td>QY8723</td>
-                                            <td>Ngô Thái An</td>
+                                            <td>QY8723</td><td>Ngô Thái An</td>
                                             <td>Giường ngủ Kara 1.6x2m</td>
                                             <td>1 sản phẩm</td>
                                             <td>14.500.000 đ</td>
@@ -248,8 +237,7 @@
                     <div class="tile-body">
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
-                                <tr>
-                                    <th>Họ và tên</th>
+                                <tr><th>Họ và tên</th>
                                     <th>Địa chỉ</th>
                                     <th>Ngày sinh</th>
                                     <th>Giới tính</th>
@@ -313,8 +301,7 @@
 
    
     <script type="text/javascript">
-    var data = {
-      labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+    var data = {labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
       datasets: [{
           label: "Dữ liệu đầu tiên",
           fillColor: "rgba(255, 255, 255, 0.158)",

@@ -10,4 +10,5 @@ public interface IOrderDetailService {
 	OrderDetailEntity getOneByOrderID(int order_id);
 	List<OrderDetailEntity> getAllOrderDetails();
 	List<OrderDetailEntity> findAllByOrderId(int orderId);
+	
 }

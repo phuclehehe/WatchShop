@@ -15,71 +15,53 @@
           <div class="tile">
             <h3 class="tile-title">Tạo mới tài khoản</h3>
             <div class="tile-body">
-              <form class="row">
-                <div class="form-group  col-md-4">
-                  <label class="control-label">ID tài khoản ( Nếu không nhập sẽ tự động phát sinh )</label>
-                  <input class="form-control" type="text">
+              <form class="row" method="post" th:object="${accountDTO}">
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Tên chủ tài khoản</label>
+                  <input class="form-control" type="text" th:field="${accountDTO.customer_name}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Tên khách hàng</label>
-                  <input class="form-control" type="text" >
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Số điện thoại </label>
+                  <input class="form-control" type="text" th:field="${accountDTO.customer_phone}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Số điện thoại khách hàng</label>
-                  <input class="form-control" type="number" >
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Địa chỉ </label>
+                  <input class="form-control" type="text" th:field="${accountDTO.customer_address}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Địa chỉ khách hàng</label>
-                  <input class="form-control" type="text" >
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Email </label>
+                  <input class="form-control" type="text" th:field="${accountDTO.customer_email}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Tên người bán</label>
-                  <input class="form-control" type="text">
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Tài khoản </label>
+                  <input class="form-control" type="text" th:field="${accountDTO.account_name}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Số hiệu người bán</label>
-                  <input class="form-control" type="text">
+                <div class="form-group col-md-6 ">
+					<label class="control-label">Vai trò</label> 
+					<select class="form-control" th:field="${accountDTO.permission_id}">
+						<option value="0">-- Chọn vai trò --</option>
+						<option th:each="role : ${roles}"
+							th:text="${role.permission_name}"
+							th:value="${role.permission_id}"></option>
+					</select>
+				</div>
+                <div class="form-group  col-md-6">
+                  <label class="control-label">Mật khẩu </label>
+                  <input class="form-control" type="password" th:field="${accountDTO.account_password}">
                 </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Ngày làm đơn hàng</label>
-                  <input class="form-control" type="date" >
-                </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Tên sản phẩm cần bán</label>
-                  <input class="form-control" type="text">
-                </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Mã sản phẩm</label>
-                  <input class="form-control" type="text">
-                </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Số lượng</label>
-                  <input class="form-control" type="number">
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                  <select class="form-control" id="exampleSelect1">
-                    <option>-- Chọn tình trạng --</option>
-                    <option>Đã xử lý</option>
-                    <option>Đang chờ</option>
-                    <option>Đã hủy</option>
-                  </select>
-                </div>
-                <div class="form-group  col-md-4">
-                  <label class="control-label">Ghi chú đơn hàng</label>
-                  <textarea class="form-control" rows="4" ></textarea>
-                </div>  
                 
+                <button class="btn btn-save" type="submit">Lưu lại</button>
+          		<a class="btn btn-cancel" href="WatchShop1/admin/account/pagecontrol?page=QLTK">Hủy bỏ</a>
+                </form>
           </div>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" href="/doc/table-data-oder.html">Hủy bỏ</a>
+        </div>
+        </div>
         </div>
    <!-- Essential javascripts for application to work-->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-  <!-- The javascript plugin to display page loading on top-->
+  <script src="js/main.js"></script>Thymeleafwww.thymeleaf.org/-strong/-heart:>:o:-((:-h<!-- The javascript plugin to display page loading on top-->
   <script src="js/plugins/pace.min.js"></script>
   </body>
 </html>

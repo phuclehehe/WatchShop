@@ -26,10 +26,19 @@ public class PermissionEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PermissionEntity(int id, String name) {
-		super();
-		this.permission_id = id;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	public PermissionEntity(Integer permission_id, String name, Set<AccountEntity> user) {
+		super();
+		this.permission_id = permission_id;
+		this.name = name;
+		User = user;
 	}
 
 	public Integer getPermission_id() {
@@ -40,12 +49,16 @@ public class PermissionEntity {
 		this.permission_id = i;
 	}
 
-	public String getName() {
-		return name;
+	public Set<AccountEntity> getUser() {
+		return User;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(Set<AccountEntity> user) {
+		User = user;
+	}
+
+	public void setPermission_id(Integer permission_id) {
+		this.permission_id = permission_id;
 	}
 
 }

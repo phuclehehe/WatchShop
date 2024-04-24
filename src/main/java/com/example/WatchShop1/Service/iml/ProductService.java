@@ -122,7 +122,7 @@ public class ProductService implements IProductService {
         product.setSupplierEntity(supplier);
         ProductTypeEntity productType = new ProductTypeEntity();
         productType.setType_id(productDTO.getType_id());
-        product.setTypeId(productType);;
+        product.setTypeId(productType);
         
         // Để lưu hình ảnh, bạn cần code ở đây để di chuyển hình ảnh vào thư mục /static/assets/image
         // và lưu đường dẫn của hình ảnh vào đối tượng Product

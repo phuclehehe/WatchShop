@@ -1,4 +1,5 @@
 package com.example.WatchShop1.Controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,23 +7,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.WatchShop1.Service.iml.AccountService;
+import com.example.WatchShop1.Service.iml.ReportService;
 @Controller
-@RequestMapping("/report/pagecontrol")
+@RequestMapping("/admin/report/pagecontrol")
 public class ReportController {
-	@Autowired
-	private AccountService accountService;
+	private ReportService reportService;
 	
-//	@Autowired
-//	public AccountController(AccountServiceImpl accountService) {
-//		this.accountService = accountService;
-//	}
+	@Autowired
+	public ReportController(ReportService reportService) {
+		this.reportService = reportService;
+	}
 	
 	@GetMapping
 	public String getPage(@RequestParam("page") String page, Model model) {
 	    if ("QLBC".equals(page)) {
-//	        List<Account> accountList = accountService.getAllAccounts();
-//	        model.addAttribute("accounts", accountList);
+	    	int totalSevenue = reportService.getMonthSevenue();
+	    	model.addAttribute("totalSevenue", totalSevenue);
+	    	int staffNumber = reportService.getStaffNumber();
+	    	model.addAttribute("staffNumber",staffNumber);
+	    	int productNumber = reportService.getAllProduct();
+	    	model.addAttribute("productNumber", productNumber);
+	    	int orderAmount = reportService.getOrderAmount();
+	    	model.addAttribute("orderAmount", orderAmount);
+	    	int cancelOrderAmount = reportService.getCancelOrderAmount();
+	    	model.addAttribute("cancelOrderAmount", cancelOrderAmount);
+	    	int banAmount = reportService.getBanAmount();
+	    	model.addAttribute("banAmount", banAmount);
+	    	int soldOut = reportService.getSoldOut();
+	    	model.addAttribute("soldOut", soldOut);
 	        model.addAttribute("page","QLBC");
 	        return "/admin/doc/index_admin";  // Return the name of the view to be displayed
 	    } else {

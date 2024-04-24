@@ -23,6 +23,7 @@
 									<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>	
 								</li>
 								<li> <a th:href="@{/admin/home/pagecontrol}" sec:authorize="hasRole('ADMIN')">Admin</a>	
+									<a th:href="@{/admin/home/pagecontrol}" sec:authorize="hasRole('EMPLOYEE')">Admin</a>	
 								</li>
 								<li><a th:href="@{/information}">Information</a></li>
 								<li><a th:href="@{/orderlist}">Order</a></li>

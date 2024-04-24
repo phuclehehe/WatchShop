@@ -72,7 +72,7 @@
 									th:href="@{'/product_details?id='+${product.product_id}}">
 								<div class="single-popular-items mb-50 text-center">
 									<div class="popular-img">
-										<img src="assets1/img/gallery/popular1.png" alt="">
+										<img th:src="${product.product_image}" alt="">
 										<div class="img-cap">
 											<span>Add to cart</span>
 										</div>
